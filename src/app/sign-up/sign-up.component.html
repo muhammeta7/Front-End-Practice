@@ -1,1 +1,74 @@
-<p>sign-up works!</p>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center form_container">
+
+
+                <div class="brand_logo_container">
+                    <img src="../../assets/icon.jpg" class="brand_logo" alt="Logo">
+                </div>
+
+
+                <form name="form"
+                      #f="ngForm"
+                      (ngSubmit)="createUser()"
+                      novalidate class = "login-form">
+                    <!---- Firstname  ---->
+                    <div class="text-center"><label class="text-white text-center">Enter First Name</label></div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text"
+                               name="firstName"
+                               class="form-control user_input"
+                               placeholder="first name" [(ngModel)]="userModel.firstName">
+                    </div>
+                    <!---- Lastname  ---->
+                    <div class="text-center"><label class="text-white text-center">Enter Last Name</label></div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text"
+                               name="lastName"
+                               class="form-control user_input"
+                               placeholder="last name" [(ngModel)]="userModel.lastName">
+                    </div>
+                    <!---- Username  ---->
+                    <div class="text-center"><label class="text-white text-center">Create UserName</label></div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text"
+                               name="userName"
+                               class="form-control first_name"
+                               placeholder="username" [(ngModel)]="userModel.userName">
+                    </div>
+                    <!---- Password  ---->
+                    <div class="text-center"><label class="text-white text-center">Enter Password</label></div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password"
+                               name="password"
+                               class="form-control input_pass"
+                               placeholder="password" [(ngModel)]="userModel.password">
+                    </div>
+
+
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                        <button type="submit" class="btn login_btn">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+

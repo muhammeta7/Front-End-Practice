@@ -7,11 +7,13 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ChannelsComponent } from './channels/channels.component';
 import { MessagesComponent } from './messages/messages.component';
+import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+
 import { Router, Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { FooterComponent } from './footer/footer.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import {HttpClientModule} from "@angular/common/http";
+import {AppRoutingModule} from "./app-routing.module";
 
 
 const appRoutes : Routes = [
@@ -46,17 +48,17 @@ const appRoutes : Routes = [
   declarations: [
     AppComponent,
     NavigationComponent,
-    FooterComponent,
     NotFoundComponent,
     ChannelsComponent,
     MessagesComponent,
     LoginComponent,
-    FooterComponent,
     SignUpComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
+    AppRoutingModule,
     RouterModule.forRoot(appRoutes, {enableTracing:true})
   ],
   providers: [],
