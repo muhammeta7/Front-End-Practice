@@ -15,9 +15,8 @@
 }
 
 div.d-flex.justify-content-center.form_container{
-  margin-top: 50px;
+  margin-top: 40%;
   padding-left: 7px;
-  //padding-right: 13px;
 }
 
 .invalid-input{
@@ -67,6 +66,12 @@ div.d-flex.justify-content-center.form_container{
 }
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
   background-color: #c0392b !important;
+}
+
+.invalid-tooltip {
+  color: #f12d35;
+  top: 75%;
+  background-color: transparent;
 }
 
 

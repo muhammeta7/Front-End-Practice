@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Channel} from "../models/channel";
 
 @Component({
   selector: 'app-channels',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./channels.component.scss']
 })
 export class ChannelsComponent implements OnInit {
+  channels: Channel[] = [];
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getAllChannels();
   }
 
+  public getAllChannels(){
+    let url = "http://localhost:8080/channels";
+    this.http.get<Channel[]>(url).subscribe(
+        res => {
+          this.channels = res;
+        },
+        error => {
+          alert("An error has occurred;")
+        }
+    );
+  }
 }
