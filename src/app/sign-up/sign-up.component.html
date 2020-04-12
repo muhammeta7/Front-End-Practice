@@ -3,72 +3,103 @@
         <div class="user_card">
             <div class="d-flex justify-content-center form_container">
 
+                <div class="d-flex justify-content-center form_container">
+                    <div class="brand_logo_container">
+                        <img src="https://i.imgur.com/j0Pp0bX.png" class="brand_logo" alt="Logo">
+                    </div>
 
-                <div class="brand_logo_container">
-                    <img src="../../assets/icon.jpg" class="brand_logo" alt="Logo">
+                    <div class="d-flex justify-content-center form_container">
+
+                        <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && createUser()" novalidate class = "login-form">
+                            <!---- Firstname  ---->
+                            <!--                    <div class="text-center"><label class="text-white text-center">Enter First Name</label></div>-->
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text"
+                                       id = "firstName"
+                                       name="firstName"
+                                       class="form-control"
+                                       placeholder="first name"
+                                       [(ngModel)]="userModel.firstName"
+                                       #firstName = "ngModel"
+                                       [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
+                                       required minlength="3">
+                                <!---- input invalidation group  ---->
+                                <div *ngIf="f.submitted && firstName.invalid" class="invalid-input">
+                                    <div *ngIf="firstName.errors?.required">Must be 3 characters</div>
+                                </div>
+                            </div>
+                            <!---- Lastname  ---->
+                            <!--                    <div class="text-center"><label class="text-white text-center">Enter Last Name</label></div>-->
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text"
+                                       id="lastName"
+                                       name="lastName"
+                                       class="form-control"
+                                       placeholder="last name"
+                                       [(ngModel)]="userModel.lastName"
+                                       #lastName = "ngModel"
+                                       [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
+                                       required minlength="3">
+                                <div *ngIf="f.submitted && lastName.invalid" class="invalid-input">
+                                    <div *ngIf="lastName.errors?.required">Must be 3 characters</div>
+                                </div>
+                            </div>
+                            <!---- Username  ---->
+                            <!--                    <div class="text-center"><label class="text-white text-center">Create UserName</label></div>-->
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text"
+                                       id="userName"
+                                       name="userName"
+                                       class="form-control"
+                                       placeholder="username"
+                                       [(ngModel)]="userModel.userName"
+                                       #userName = "ngModel"
+                                       [ngClass]="{ 'is-invalid': f.submitted && userName.invalid }"
+                                       required minlength="5">
+                                <div *ngIf="f.submitted && userName.invalid" class="invalid-input">
+                                    <div *ngIf="userName.errors?.required">Must be 3 characters</div>
+                                </div>
+                            </div>
+                            <!---- Password  ---->
+                            <!--                    <div class="text-center"><label class="text-white text-center">Enter Password</label></div>-->
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input type="password"
+                                       id="password"
+                                       name="password"
+                                       class="form-control"
+                                       placeholder="password"
+                                       [(ngModel)]="userModel.password"
+                                       #password = "ngModel"
+                                       [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+                                       required minlength="5">
+                                <div *ngIf="f.submitted && password.invalid" class="invalid-input">
+                                    <div *ngIf="password.errors?.required">Must be 5 characters</div>
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex justify-content-center mt-3 login_container">
+                                <button type="submit" class="btn login_btn">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
 
-
-                <form name="form"
-                      #f="ngForm"
-                      (ngSubmit)="createUser()"
-                      novalidate class = "login-form">
-                    <!---- Firstname  ---->
-                    <div class="text-center"><label class="text-white text-center">Enter First Name</label></div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text"
-                               name="firstName"
-                               class="form-control user_input"
-                               placeholder="first name" [(ngModel)]="userModel.firstName">
-                    </div>
-                    <!---- Lastname  ---->
-                    <div class="text-center"><label class="text-white text-center">Enter Last Name</label></div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text"
-                               name="lastName"
-                               class="form-control user_input"
-                               placeholder="last name" [(ngModel)]="userModel.lastName">
-                    </div>
-                    <!---- Username  ---->
-                    <div class="text-center"><label class="text-white text-center">Create UserName</label></div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text"
-                               name="userName"
-                               class="form-control first_name"
-                               placeholder="username" [(ngModel)]="userModel.userName">
-                    </div>
-                    <!---- Password  ---->
-                    <div class="text-center"><label class="text-white text-center">Enter Password</label></div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
-                        <input type="password"
-                               name="password"
-                               class="form-control input_pass"
-                               placeholder="password" [(ngModel)]="userModel.password">
-                    </div>
-
-
-                    <div class="d-flex justify-content-center mt-3 login_container">
-                        <button type="submit" class="btn login_btn">Submit</button>
-                    </div>
-
-                </form>
             </div>
-
-
         </div>
     </div>
-</div>
 
 
