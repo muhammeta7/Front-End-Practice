@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Channel} from "../models/channel";
+import {Channel} from "./model/channel";
+import {ApiService} from "../shared/api.service";
+import {UserViewModel} from "../sign-up/sign-up.component";
 
 @Component({
   selector: 'app-channels',
@@ -9,15 +10,15 @@ import {Channel} from "../models/channel";
 })
 export class ChannelsComponent implements OnInit {
   channels: Channel[] = [];
-  constructor(private http: HttpClient) { }
+
+  constructor(private apiService: ApiService ) { }
 
   ngOnInit() {
     this.getAllChannels();
   }
 
   public getAllChannels(){
-    let url = "http://localhost:8080/channels";
-    this.http.get<Channel[]>(url).subscribe(
+    this.apiService.getAllChannels().subscribe(
         res => {
           this.channels = res;
         },
@@ -25,5 +26,22 @@ export class ChannelsComponent implements OnInit {
           alert("An error has occurred;")
         }
     );
+  }
+
+  createChannel() {
+    let newChannel: Channel = {
+      id: null,
+      channelName:'New Channel',
+      isPrivate: true
+    }
+
+    this.apiService.createChannel(newChannel).subscribe(
+        res => {
+          newChannel.id = res.id;
+          this.channels.push(newChannel);
+        },error => {
+          {alert("An error has occurred while creating Channel")}
+        }
+    )
   }
 }

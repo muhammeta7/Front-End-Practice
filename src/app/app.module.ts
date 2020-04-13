@@ -30,7 +30,7 @@ const appRoutes : Routes = [
     component: LoginComponent
   },
   {
-    path: 'signup',
+    path: 'users/create',
     component: SignUpComponent
   },
   {
@@ -41,7 +41,12 @@ const appRoutes : Routes = [
   {
     path : '**',
     component: NotFoundComponent
+  },
+  {
+    path: 'channels/create/user/1',
+    component : ChannelsComponent
   }
+
 ]
 
 @NgModule({

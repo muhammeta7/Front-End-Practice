@@ -1,1 +1,29 @@
-<p>channels works!</p>
+<div class="container">
+    <!-- Search Area -->
+    <div class="row search">
+        <div class="col-md-8">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Channels <i class="fa fa-tv ml-2"></i></span>
+                <input type="text" class="form-control" placeholder="Create Channel" aria-label="Search" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <button type="button"
+                    (click)="createChannel()"
+                    class="btn btn-outline-primary channelBut">
+                <span><i class="fa fa-plus mr-2"></i></span> Channel</button>
+<!--            <button type="button" class="btn btn-outline-success messageBut"><span><i class="fa fa-plus mr-2"></i></span> Message</button>-->
+        </div>
+    </div>
+
+    <!-- List Of Public Channels -->
+    <div class="row channels">
+        <div class="col-md-3 channelOptions">
+            <div class="list-group">
+                <a *ngFor="let channel of channels" class="list-group-item list-group-item-action">{{channel.channelName}}</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {ApiService} from "../shared/api.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -15,14 +15,13 @@ export class SignUpComponent implements OnInit {
     userName: '',
     password: ''
   };
-  constructor(private http:HttpClient) { }
+  constructor(private apiService:ApiService) { }
 
   ngOnInit(): void {
   }
 
   createUser(): void{
-    let url = "http://localhost:8080/users/create";
-    this.http.post(url, this.userModel).subscribe(
+    this.apiService.createUser(this.userModel).subscribe(
         res => {
           location.reload();
         },
