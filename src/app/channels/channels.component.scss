@@ -13,8 +13,20 @@
   background: black;
 }
 
-.messageBut{
-  border-color: #5be0f3;
-  background: black;
-  color: lawngreen;
+.list-group-item{
+  cursor: pointer;
+  background: url("https://i.imgur.com/cK1tC6c.png");
 }
+
+.input-label{
+  background: rgba(0,0,0,0);
+  border: none;
+  cursor: none;
+  color: black;
+}
+.fa-group:before, .fa-users:before {
+  content: "\f0c0";
+  color: black;
+  padding-right: 5px;
+}
+

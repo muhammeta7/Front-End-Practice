@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Message} from "./model/message";
+import {ApiService} from "../shared/api.service";
 
 @Component({
   selector: 'app-messages',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
-  constructor() { }
+  messages: Message[] = [];
 
-  ngOnInit(): void {
+  constructor(private apiService: ApiService) { }
+
+  ngOnInit() {
   }
+
+
 
 }

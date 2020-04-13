@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../shared/api.service";
+import {Message} from "../messages/model/message";
+import {Channel} from "../channels/model/channel";
 
 @Component({
   selector: 'app-sign-up',
@@ -13,8 +15,11 @@ export class SignUpComponent implements OnInit {
     lastName : '',
     connected: true,
     userName: '',
-    password: ''
+    password: '',
+    messages: [],
+    channels:[]
   };
+
   constructor(private apiService:ApiService) { }
 
   ngOnInit(): void {
@@ -39,4 +44,6 @@ export interface UserViewModel{
   connected: boolean;
   userName: string;
   password: string;
+  messages: Message[];
+  channels: Channel[];
 }
