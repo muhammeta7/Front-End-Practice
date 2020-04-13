@@ -1,44 +1,54 @@
 <div class="container">
+
+    <div class="row panel">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Your Channels</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Search Area -->
-    <div class="row search">
-        <div class="col-md-8">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">Channels <i class="fa fa-tv ml-2"></i></span>
+    <!-- TODO ERROR HANDLING -->
+    <div class="row createChannel">
+        <div class="col-md-4 input-group">
                 <input type="text"
                        class="form-control"
                        id="channelName"
                        name="channelName"
-                       placeholder="Create Channel"
+                       placeholder="Create New Channel"
                        aria-label="Search"
                        aria-describedby="basic-addon1"
                        [(ngModel)]="channelModel.channelName">
-            </div>
-        </div>
 
-        <div class="col-md-4">
-            <button type="button"
-                    (click)="createChannel()"
-                    class="btn btn-outline-primary channelBut">
-                <span><i class="fa fa-plus mr-2"></i></span> Channel</button>
+                <div class="input-group-append">
+                    <button type="button"
+                            (click)="createChannel()"
+                            class="btn channelBut">
+                        <i class="fa fa-mouse-pointer text-center"></i>
+                    </button>
+                </div>
         </div>
-
     </div>
-    <!-- TODO ERROR HANDLING -->
 
-    <!-- List Of Public Channels -->
-    <div class="row channels">
-        <div class="col-md-3 channelOptions">
-            <div class="list-group">
-                <a *ngFor="let channel of channels" class="list-group-item list-group-item-action">
-                    <i class="fa fa-group"></i>
-                    <input [(ngModel)]="channel.channelName" (change)="updateChannel(channel)" type="text" class="input-label" style="width: 70%">
-                    <a (click)="deleteChannel(channel)" class="pull-right text-danger">
-                        <i class="fa fa-trash-o"></i>
+    <!-- List Of Public Options   -->
+    <div class = "row newList">
+        <div class="input-group col-md-4">
+            <a *ngFor="let channel of channels" class="list-group-item list-group-item-action">
+                <div class="input-group-prepend pull-left">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-group"></i></span>
+                </div>
+                <span><input [(ngModel)]="channel.channelName" (change)="updateChannel(channel)" type="text" class="input-label"></span>
+                <div class="input-group-append fa-pull-right">
+                    <a (click)="deleteChannel(channel)">
+                    <span class="input-group-text"><i class="fa fa-trash-o"></i></span>
                     </a>
-                </a>
-
-            </div>
+                </div>
+            </a>
         </div>
+
         <!-- List Of Channel Messages -->
         <div class="col-md-9 channel-messages">
             <div class="single-message">
@@ -46,9 +56,11 @@
                     <li class="list-group-item">{{message.content}}</li>
                 </ul>
             </div>
-
         </div>
+
+
     </div>
+
 
 </div>
 

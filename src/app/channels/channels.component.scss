@@ -1,5 +1,10 @@
-.search, .channels{
-  margin-top: 20px;
+.panel{
+  margin-top: 60px;
+}
+
+.card{
+  background: url("https://i.imgur.com/LDiWP91.png");
+  color: #5be0f3;
 }
 
 .input-group-text{
@@ -7,15 +12,23 @@
   color: #5be0f3;
 }
 
+.input-group-text,i, .fa fa-trash-o {
+  color:red;
+}
+
 .channelBut{
-  color: #5be0f3;
-  border-color: #5be0f3;
-  background: black;
+  background: rgba(0, 128, 0, 0.73);
+}
+
+.fa-mouse-pointer:before {
+  content: "\f245";
+  color: white;
 }
 
 .list-group-item{
   cursor: pointer;
   background: url("https://i.imgur.com/cK1tC6c.png");
+  padding: 0;
 }
 
 .input-label{
@@ -23,10 +36,12 @@
   border: none;
   cursor: none;
   color: black;
+  padding-left: 15px;
+  font-size: 1rem;
 }
+
 .fa-group:before, .fa-users:before {
-  content: "\f0c0";
-  color: black;
-  padding-right: 5px;
+  color: #5be0f3;
+  font-size: 1rem;
 }
 
