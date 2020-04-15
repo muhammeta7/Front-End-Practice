@@ -19,9 +19,6 @@ export class ApiService {
   
   // Message Endpoints
 
-
-
-
   constructor(private http: HttpClient) {
 
   }
@@ -30,6 +27,7 @@ export class ApiService {
   private BASE_CHANNELS_URL = `${this.BASE_URL}\\channels`
   // TODO Channels Always Being created by user 1
   private CREATE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}\\create\\user\\1`;
+  // private CREATE_CHANNEL_URL1 = `${this.BASE_CHANNELS_URL}\\create\\user`;
   private DELETE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}\\`;
   private GET_CHANNEL_MESSAGES = `${this.BASE_CHANNELS_URL}\\chat\\`;
 
@@ -41,9 +39,14 @@ export class ApiService {
     return this.http.post(this.CREATE_USER_URL, user);
   }
 
+  // TODO Fix method to take in user after logging in
   createChannel(channel: Channel) {
     return this.http.post<Channel>(this.CREATE_CHANNEL_URL, channel);
   }
+
+  // createChannelUser(user: UserViewModel, channel:Channel){
+  //   return this.http.post<Channel>(this.CREATE_CHANNEL_URL1 + "/" + user.id, channel);
+  // }
 
   deleteChannel(id:number): Observable<any>{
     return this.http.delete(this.DELETE_CHANNEL_URL + id)

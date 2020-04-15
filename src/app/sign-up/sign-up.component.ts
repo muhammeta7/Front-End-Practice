@@ -11,6 +11,7 @@ import {Channel} from "../channels/model/channel";
 export class SignUpComponent implements OnInit {
 
   userModel:UserViewModel = {
+    id: null,
     firstName : '',
     lastName : '',
     connected: true,
@@ -39,6 +40,7 @@ export class SignUpComponent implements OnInit {
 }
 
 export interface UserViewModel{
+  id: number;
   firstName : string;
   lastName : string;
   connected: boolean;

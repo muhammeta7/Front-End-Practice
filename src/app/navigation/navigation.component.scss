@@ -1,22 +1,21 @@
-
-
-.navbar-collapse .navbar-nav > li > a {
-  color: #5be0f3
+.navbar{
+  background: url("https://i.imgur.com/LDiWP91.png");
 }
-
-.navbar .navbar-brand > span {
-  color: #5be0f3
-}
-
-.navbar .navbar-brand > i {
-  color: #5be0f3
-}
-
-.navbar-collapse .navbar-nav > li > a:hover,
-.navbar-collapse .navbar-nav > li > a:focus {
+.navbar-brand{
   color: white;
 }
 
-.navbar{
-  background: url("https://i.imgur.com/LDiWP91.png");
+.navbar-collapse .navbar-nav > li > a {
+  color: white;
+}
+.title{
+  padding-left: 15px;
+}
+.navbar-collapse .navbar-nav > li > a:hover,
+.navbar-collapse .navbar-nav > li > a:focus {
+  color: #5be0f3;
+}
+
+.navbar-toggler-icon {
+  background: #5be0f3;
 }

@@ -1,33 +1,48 @@
-.panel{
-  margin-top: 60px;
-}
-
 .card{
   background: url("https://i.imgur.com/LDiWP91.png");
-  color: #5be0f3;
-}
-
-.input-group-text{
-  background: black;
-  color: #5be0f3;
-}
-
-.input-group-text,i, .fa fa-trash-o {
-  color:red;
-}
-
-.channelBut{
-  background: rgba(0, 128, 0, 0.73);
-}
-
-.fa-mouse-pointer:before {
-  content: "\f245";
   color: white;
 }
 
+.panel{
+  margin-top: 25px;
+}
+
+.userChannels{
+  margin-top: 20px;
+}
+// Button Backgrounds
+#addChannel{
+  background: url("https://i.imgur.com/cK1tC6c.png");
+  box-shadow: dimgray;
+}
+
+.input-group-text{
+  background: url("https://i.imgur.com/cK1tC6c.png");
+}
+
+.channelBut{
+  color: #77796d;
+}
+// Icons and Buttons
+.fa-plus:hover {
+  content: "\f067";
+  font-size: 1.1rem;
+  color: #00b000;
+}
+
+.fa-trash-o:hover{
+  font-size: 1.1rem;
+  color: red;
+}
+
+.fa-eye:hover{
+  font-size: 1.1rem;
+  color: deepskyblue;
+}
+
+//
 .list-group-item{
   cursor: pointer;
-  background: url("https://i.imgur.com/cK1tC6c.png");
   padding: 0;
 }
 
@@ -37,11 +52,51 @@
   cursor: none;
   color: black;
   padding-left: 15px;
-  font-size: 1rem;
 }
 
-.fa-group:before, .fa-users:before {
-  color: #5be0f3;
-  font-size: 1rem;
+// Fields
+//.fields{
+//  border-bottom: 1px;
+//  border-style: solid;
+//  border-color: black;
+//  margin-top: -2px;
+//}
+//
+//.titles{
+//  margin-bottom: -1px;
+//  padding-bottom: 5px;
+//}
+
+// Message Details
+.list-group-flush li:nth-child(1){
+  margin-top: -2%;
+}
+
+.list-group-flush li{
+  background: url("https://i.imgur.com/9hXkgVS.png");
+}
+
+.list-group-flush li:nth-child(odd){
+  background: url("https://i.imgur.com/cK1tC6c.png");
+}
+
+.sender{
+  padding-left: 3%;
+  padding-top: 1%;
+  font-weight: bold;
+  font-family: Georgia;
+  font-size: .7rem;
+}
+
+.messages{
+  padding-left: 3%;
+  margin-top: -3.5%;
+  font-size: .65rem;
+}
+
+.stamp{
+  padding-right: 10%;
+  font-size: 0.5rem;
+  color: dimgray;
 }
 
