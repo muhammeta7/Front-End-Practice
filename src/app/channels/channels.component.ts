@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Channel} from "./model/channel";
-import {ApiService} from "../shared/api.service";
 import {Message} from "../messages/model/message";
 import {UserViewModel} from "../sign-up/sign-up.component";
+import {ChannelService} from "../shared/channel.service";
 
 @Component({
     selector: 'app-channels',
@@ -31,7 +31,7 @@ export class ChannelsComponent implements OnInit {
         channel: null
     };
 
-    constructor(private apiService: ApiService) { }
+    constructor(private channelService: ChannelService) { }
 
     ngOnInit() {
         this.getAllChannels();
@@ -42,7 +42,7 @@ export class ChannelsComponent implements OnInit {
     }
 
     public getAllChannels(){
-        this.apiService.getAllChannels().subscribe(
+        this.channelService.getAllChannels().subscribe(
             res => {
                 this.channels = res;
             },
@@ -53,17 +53,17 @@ export class ChannelsComponent implements OnInit {
     }
 
     public getChannelById(id: number){
-        this.apiService.getChannelById(this.channelModel.id).subscribe(
+        this.channelService.getChannelById(this.channelModel.id).subscribe(
             res => {
                 this.channelModel = res;
             }, error => {
-                alert("This channel does not exist.")
+                alert("This channel does not exist.");
             }
         )
     }
 
     createChannel() {
-        this.apiService.createChannel(this.channelModel).subscribe(
+        this.channelService.createChannel(this.channelModel).subscribe(
             res => {
                 this.channelModel.id = res.id ;
                 this.channels.push(this.channelModel);
@@ -87,7 +87,7 @@ export class ChannelsComponent implements OnInit {
     // }
 
     updateChannel(updatedChannel: Channel) {
-        this.apiService.createChannel(updatedChannel).subscribe(
+        this.channelService.createChannel(updatedChannel).subscribe(
             res => {
 
             },error => {
@@ -98,7 +98,7 @@ export class ChannelsComponent implements OnInit {
 
     deleteChannel(channel: Channel) {
         if(confirm("Are you sure you would like to delete this channel")){
-            this.apiService.deleteChannel(channel.id).subscribe(
+            this.channelService.deleteChannel(channel.id).subscribe(
                 res => {
                     let index = this.channels.indexOf(channel);
                     this.channels.splice(index, 1);
@@ -110,7 +110,7 @@ export class ChannelsComponent implements OnInit {
     }
 
     getChannelMessages(channel: Channel){
-        this.apiService.getChannelMessages(channel.id).subscribe(
+        this.channelService.getChannelMessages(channel.id).subscribe(
             res => {
                 this.channelMessages = res;
             },
@@ -121,7 +121,7 @@ export class ChannelsComponent implements OnInit {
     }
 
     sendMessage(message:Message){
-        this.apiService.createMessage(message).subscribe(
+        this.channelService.createMessage(message).subscribe(
             res => {
                 this.messageModel.id = res.id;
                 this.messageModel.sender = res.sender;
@@ -131,7 +131,5 @@ export class ChannelsComponent implements OnInit {
             }
         );
     }
-
-
 
 }
