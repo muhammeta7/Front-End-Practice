@@ -13,6 +13,7 @@ export class ChannelsComponent implements OnInit {
     channels: Channel[] = [];
     channelMessages: Message[] = [];
     channelUsers: UserViewModel[] = [];
+    isShow:boolean = false;
 
     channelModel:Channel = {
         id: null,
@@ -22,21 +23,22 @@ export class ChannelsComponent implements OnInit {
         users: []
     };
 
-    // userModel: UserViewModel = {
-    //     id: 2,
-    //     firstName : '',
-    //     lastName : '',
-    //     connected: true,
-    //     userName: '',
-    //     password: '',
-    //     messages: [],
-    //     channels:[]
-    // }
+    messageModel: Message = {
+        id: null,
+        content: '',
+        timestamp: null,
+        sender: null,
+        channel: null
+    };
 
     constructor(private apiService: ApiService) { }
 
     ngOnInit() {
         this.getAllChannels();
+    }
+
+    public showHiddenElement(){
+        this.isShow = !this.isShow;
     }
 
     public getAllChannels(){
@@ -45,9 +47,19 @@ export class ChannelsComponent implements OnInit {
                 this.channels = res;
             },
             error => {
-                alert("An error has occurred;")
+                alert("An error has occurred.");
             }
         );
+    }
+
+    public getChannelById(id: number){
+        this.apiService.getChannelById(this.channelModel.id).subscribe(
+            res => {
+                this.channelModel = res;
+            }, error => {
+                alert("This channel does not exist.")
+            }
+        )
     }
 
     createChannel() {
@@ -56,7 +68,7 @@ export class ChannelsComponent implements OnInit {
                 this.channelModel.id = res.id ;
                 this.channels.push(this.channelModel);
             },error => {
-                {alert("An error has occurred while creating Channel")}
+                alert("An error has occurred while creating Channel.");
             }
         );
     }
@@ -79,7 +91,7 @@ export class ChannelsComponent implements OnInit {
             res => {
 
             },error => {
-                {alert("An error has occurred while updating Channel")}
+                alert("An error has occurred while updating Channel");
             }
         );
     }
@@ -107,6 +119,19 @@ export class ChannelsComponent implements OnInit {
             }
         );
     }
+
+    sendMessage(message:Message){
+        this.apiService.createMessage(message).subscribe(
+            res => {
+                this.messageModel.id = res.id;
+                this.messageModel.sender = res.sender;
+                this.channelMessages.push(this.messageModel);
+            }, error => {
+                alert("Error while creating message.");
+            }
+        );
+    }
+
 
 
 }

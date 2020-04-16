@@ -10,6 +10,8 @@
 .userChannels{
   margin-top: 20px;
 }
+
+
 // Button Backgrounds
 #addChannel{
   background: url("https://i.imgur.com/cK1tC6c.png");
@@ -23,6 +25,7 @@
 .channelBut{
   color: #77796d;
 }
+
 // Icons and Buttons
 .fa-plus:hover {
   content: "\f067";
@@ -51,21 +54,9 @@
   border: none;
   cursor: none;
   color: black;
-  padding-left: 15px;
+  padding-left: 4%;
+  font-size: 1rem;
 }
-
-// Fields
-//.fields{
-//  border-bottom: 1px;
-//  border-style: solid;
-//  border-color: black;
-//  margin-top: -2px;
-//}
-//
-//.titles{
-//  margin-bottom: -1px;
-//  padding-bottom: 5px;
-//}
 
 // Message Details
 .list-group-flush li:nth-child(1){
@@ -84,19 +75,18 @@
   padding-left: 3%;
   padding-top: 1%;
   font-weight: bold;
-  font-family: Georgia;
   font-size: .7rem;
 }
 
 .messages{
   padding-left: 3%;
-  margin-top: -3.5%;
+  margin-top: -3%;
   font-size: .65rem;
 }
 
 .stamp{
-  padding-right: 10%;
   font-size: 0.5rem;
+  padding-right: 9%;
   color: dimgray;
 }
 
