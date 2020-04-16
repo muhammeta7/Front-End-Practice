@@ -97,8 +97,11 @@
                                 <div class="col-sm-8">
                                     <p class="username">{{message.sender.userName}}</p>
                                 </div>
-                                <div class="col-sm-4 text-right">
+                                <div class="col-sm-3 text-right">
                                     <p class="stamp">{{message.timestamp | date:'M/d/yy-h:mm a'}}</p>
+                                </div>
+                                <div class="col-sm-1">
+                                    <i class="fa fa-edit"></i>
                                 </div>
                             </div>
                             <div class="row messages">
@@ -108,6 +111,12 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="container col-sm-12">
+                    <app-messages></app-messages>
                 </div>
             </div>
 

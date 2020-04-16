@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../shared/api.service";
+import {MessageService} from "../shared/message.service";
+import {Message} from "./model/message";
+import {ChannelService} from "../shared/channel.service";
 
 @Component({
     selector: 'app-messages',
@@ -8,6 +10,7 @@ import {ApiService} from "../shared/api.service";
 })
 export class MessagesComponent implements OnInit {
 
+    messages: Message[] =[];
 
     messageModel: {
         id: null,
@@ -17,10 +20,22 @@ export class MessagesComponent implements OnInit {
         channel: null
     };
 
-    constructor(private apiService: ApiService) {
+    constructor(private messageService: MessageService) {
     }
 
     ngOnInit() {
+
+    }
+
+    public getMessage(id:number){
+        this.messageService.getMessage(id).subscribe(
+            res => {
+                this.messages.find( x => x.id === id);
+            },
+            error => {
+                alert("An error has occurred.");
+            }
+        );
     }
 
 

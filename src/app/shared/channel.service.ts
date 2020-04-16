@@ -21,7 +21,7 @@ export class ChannelService {
     private GET_CHANNEL_BYID = `${this.BASE_CHANNELS_URL}`;
     private CREATE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}/create/user/1`;
     // private CREATE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}\\create\\user`;
-    private DELETE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}\\`;
+    private DELETE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}/`;
     private GET_CHANNEL_MESSAGES = `${this.BASE_CHANNELS_URL}/chat/`;
     private CREATE_MESSAGE_URL = `${this.BASE_MESSAGES_URL}/channel/1/sender/1`;
 
@@ -51,7 +51,5 @@ export class ChannelService {
         return this.http.delete(this.DELETE_CHANNEL_URL + id);
     }
 
-    getChannelMessages(id: number): Observable<Message[]> {
-        return this.http.get<Message[]>(this.GET_CHANNEL_MESSAGES + id);
-    }
+
 }

@@ -3,6 +3,7 @@ import {Channel} from "./model/channel";
 import {Message} from "../messages/model/message";
 import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
+import {MessageService} from "../shared/message.service";
 
 @Component({
     selector: 'app-channels',
@@ -31,7 +32,7 @@ export class ChannelsComponent implements OnInit {
         channel: null
     };
 
-    constructor(private channelService: ChannelService) { }
+    constructor(private channelService: ChannelService, private messageService: MessageService) { }
 
     ngOnInit() {
         this.getAllChannels();
@@ -74,7 +75,7 @@ export class ChannelsComponent implements OnInit {
     }
 
     // createChannelUser() {
-    //     this.apiService.createChannelUser(this.userModel, this.channelModel).subscribe(
+    //     this.channelService.createChannelUser(this.userModel, this.channelModel).subscribe(
     //         res => {
     //             this.channelModel.id = res.id ;
     //             this.channels.push(this.channelModel);
@@ -110,7 +111,7 @@ export class ChannelsComponent implements OnInit {
     }
 
     getChannelMessages(channel: Channel){
-        this.channelService.getChannelMessages(channel.id).subscribe(
+        this.messageService.getChannelMessages(channel.id).subscribe(
             res => {
                 this.channelMessages = res;
             },
