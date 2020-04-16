@@ -14,6 +14,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
+import { LogoutComponent } from './logout/logout.component';
 
 
 const appRoutes: Routes = [
@@ -27,6 +28,10 @@ const appRoutes: Routes = [
     },
     {
         path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'logout',
         component: LoginComponent
     },
     {
@@ -53,7 +58,8 @@ const appRoutes: Routes = [
         ChannelsComponent,
         MessagesComponent,
         LoginComponent,
-        SignUpComponent
+        SignUpComponent,
+        LogoutComponent
     ],
     imports: [
         BrowserModule,
