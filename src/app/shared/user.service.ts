@@ -12,16 +12,20 @@ export class UserService {
     private BASE_URL = "http://localhost:8080";
     // User Endpoints
     private BASE_USERS_URL = `${this.BASE_URL}/users`;
-    //private CREATE_USER_URL = `${this.BASE_USERS_URL}/create`;
     private GET_USER_URL = `${this.BASE_USERS_URL}/`;
     private CREATE_USER = `${this.BASE_URL}/register`;
+    private GET_BY_USERNAME = `${this.BASE_USERS_URL}/username/`;
 
     constructor(private http: HttpClient) {
 
     }
 
-    getUserById(id: number): Observable<UserViewModel> {
+    getUserById(id: number): Observable<any> {
         return this.http.get<UserViewModel>(this.GET_USER_URL + id)
+    }
+
+    getUserByUserName(username: String): Observable<any> {
+        return this.http.get<UserViewModel>(`${this.GET_BY_USERNAME}` + username);
     }
 
     // USER CRUD Operations

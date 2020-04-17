@@ -16,12 +16,17 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import { LogoutComponent } from './logout/logout.component';
 import {BasicAuthHttpInterceptorService} from "./shared/basic-auth-http-interceptor.service";
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const appRoutes: Routes = [
     {
         path: 'channels',
         component: ChannelsComponent
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent
     },
     {
         path: 'messages',
@@ -59,7 +64,8 @@ const appRoutes: Routes = [
         MessagesComponent,
         LoginComponent,
         SignUpComponent,
-        LogoutComponent
+        LogoutComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,
