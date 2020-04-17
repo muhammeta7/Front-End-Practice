@@ -41,8 +41,7 @@ const appRoutes: Routes = [
     },
     {
         path: '',
-        component: LoginComponent,
-        pathMatch: 'full'
+        component: LoginComponent
     },
     {
         path: '**',
