@@ -33,7 +33,7 @@ export class SignUpComponent implements OnInit {
                     location.reload();
                 },
                 err => {
-                    alert("An error has occurred while creating user!")
+                    alert("An error has occurred while creating user!");
                 }
         );
     }

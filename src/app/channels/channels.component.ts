@@ -4,6 +4,7 @@ import {Message} from "../messages/model/message";
 import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
+import {UserService} from "../shared/user.service";
 
 @Component({
     selector: 'app-channels',
@@ -32,7 +33,7 @@ export class ChannelsComponent implements OnInit {
         channel: null
     };
 
-    constructor(private channelService: ChannelService, private messageService: MessageService) { }
+    constructor(private channelService: ChannelService, private messageService: MessageService, private userService: UserService) { }
 
     ngOnInit() {
         this.getAllChannels();
