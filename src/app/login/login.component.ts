@@ -9,8 +9,8 @@ import {AuthenticationService} from "../shared/authentication.service";
 })
 export class LoginComponent implements OnInit {
 
-    username = "javainuse";
-    password = '';
+    username = "";
+    password = "";
     invalidLogin = false;
 
     constructor(private router: Router, private loginService: AuthenticationService) {
@@ -21,11 +21,16 @@ export class LoginComponent implements OnInit {
     }
 
     checkLogin(){
-      if(this.loginService.authenticate(this.username, this.password)){
-        this.router.navigate(['/channels']);
-        this.invalidLogin = false;
-      } else {
-        this.invalidLogin = true;
-      }
+        (this.loginService.authenticate(this.username, this.password).subscribe(
+                data => {
+                    this.router.navigate(['/channels']);
+                    this.invalidLogin = false;
+                },
+                error => {
+                    this.invalidLogin = true;
+
+                }
+            )
+        );
     }
 }

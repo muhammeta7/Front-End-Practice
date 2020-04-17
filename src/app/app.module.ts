@@ -12,9 +12,10 @@ import {SignUpComponent} from './sign-up/sign-up.component';
 
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import { LogoutComponent } from './logout/logout.component';
+import {BasicAuthHttpInterceptorService} from "./shared/basic-auth-http-interceptor.service";
 
 
 const appRoutes: Routes = [
@@ -68,7 +69,9 @@ const appRoutes: Routes = [
         AppRoutingModule,
         RouterModule.forRoot(appRoutes, {enableTracing: true})
     ],
-    providers: [],
+    providers: [
+        { provide:HTTP_INTERCEPTORS, useClass:BasicAuthHttpInterceptorService, multi:true }
+        ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

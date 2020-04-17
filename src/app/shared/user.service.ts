@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {UserViewModel} from "../sign-up/sign-up.component";
 
@@ -12,6 +12,7 @@ export class UserService {
     private BASE_USERS_URL = `${this.BASE_URL}/users`;
     private CREATE_USER_URL = `${this.BASE_USERS_URL}/create`;
     private GET_USER_URL = `${this.BASE_USERS_URL}/`;
+    private CREATE_USER = `${this.BASE_URL}/register`;
 
     constructor(private http: HttpClient) {
 
@@ -23,8 +24,7 @@ export class UserService {
 
     // USER CRUD Operations
     createUser(user: UserViewModel): Observable<any> {
-        return this.http.post(this.CREATE_USER_URL, user);
+        return this.http.post(this.CREATE_USER, user);
     }
-
 
 }
