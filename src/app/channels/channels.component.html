@@ -123,7 +123,13 @@
             <!--    Add Message to Channel  -->
             <div *ngIf="isShow" class="row">
                 <div  class="col-sm-12 container form-group">
-                    <textarea [(ngModel)]="messageModel.content" (keyup.enter)="sendMessage(messageModel)" class="form-control" id="addMessage" rows="2"></textarea>
+                    <textarea [(ngModel)]="messageModel.content"
+                              (keyup.enter)="sendMessage(messageModel)"
+                              class="form-control"
+                              id="addMessage"
+                              rows="2"
+                    >
+                    </textarea>
                 </div>
             </div>
 

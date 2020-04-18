@@ -15,7 +15,8 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.userService.getUserByUserName(sessionStorage.getItem('username')).subscribe(
-            data => {this.currentUser = data
+            data => {
+                this.currentUser = data;
                 console.log(data);
             });
 

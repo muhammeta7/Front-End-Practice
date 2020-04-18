@@ -16,7 +16,8 @@ export class ChannelsComponent implements OnInit {
     channels: Channel[] = [];
     channelMessages: Message[] = [];
     isShow:boolean = false;
-    currentUser:UserViewModel = undefined;
+    currentUser:UserViewModel;
+    channel:Channel;
 
 
     channelModel:Channel = {
@@ -41,7 +42,11 @@ export class ChannelsComponent implements OnInit {
 
     ngOnInit() {
         this.getChannelsByUser(sessionStorage.getItem("username"));
-        // console.log(sessionStorage.getItem("username"));
+        this.userService.getUserByUserName(sessionStorage.getItem('username')).subscribe(
+            data => {
+                this.currentUser = data;
+                console.log(data);
+            });
     }
 
     public showHiddenElement(){
@@ -79,8 +84,9 @@ export class ChannelsComponent implements OnInit {
         )
     }
 
+
     createChannel() {
-        this.channelService.createChannel(this.channelModel).subscribe(
+        this.channelService.createChannel(this.currentUser.id,this.channelModel).subscribe(
             res => {
                 this.channelModel.id = res.id ;
                 this.channels.push(this.channelModel);
@@ -90,35 +96,8 @@ export class ChannelsComponent implements OnInit {
         );
     }
 
-    createChannelI() {
-        // this.userService.getUserByUserName(sessionStorage.getItem("username")).subscribe(
-        //     data => { this.currentUser = data}
-        // );
-        // this.channelService.createChannelI(this.currentUser.id,this.channelModel).subscribe(
-        //     res => {
-        //         this.channelModel.id = res.id ;
-        //         this.channels.push(this.channelModel);
-        //     },error => {
-        //         alert("An error has occurred while creating Channel.");
-        //     }
-        // );
-    }
-
-    // createChannelUser() {
-    //     this.channelService.createChannelUser(this.userModel, this.channelModel).subscribe(
-    //         res => {
-    //             this.channelModel.id = res.id ;
-    //             this.channels.push(this.channelModel);
-    //             this.userModel.channels.push(this.channelModel);
-    //             this.channelUsers.push(this.userModel);
-    //         },error => {
-    //             {alert("An error has occurred while creating Channel")}
-    //         }
-    //     );
-    // }
-
     updateChannel(updatedChannel: Channel) {
-        this.channelService.createChannel(updatedChannel).subscribe(
+        this.channelService.createChannel(this.currentUser.id,updatedChannel).subscribe(
             res => {
 
             },error => {
@@ -163,4 +142,15 @@ export class ChannelsComponent implements OnInit {
         );
     }
 
+    // sendMessage(messageModel: Message) {
+    //     this.channelService.createMessage(this.currentUser.id, this.channelModel.id,messageModel).subscribe(
+    //         res => {
+    //             console.log(this.channelModel.id);
+    //             this.messageModel.id = res.id;
+    //             this.channelMessages.push(this.messageModel);
+    //         }, error => {
+    //             alert("Error while creating message.");
+    //         }
+    //     );
+    // }
 }

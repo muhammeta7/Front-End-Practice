@@ -7,7 +7,7 @@
     <div class="row dashboard-inner-container">
         <div class="card">
             <div class="card-header">
-                <h4 class="text-center">Welcome back {{currentUser.userName}}</h4>
+                <h4 class="text-center">Welcome back {{currentUser?.userName}}</h4>
             </div>
             <div class="card-body">
                 <img class="card-img-top" src="https://i.imgur.com/adb9dOh.jpg">
@@ -19,7 +19,7 @@
                                 <p>First Name</p>
                             </div>
                             <div class="col-sm-8">
-                                <p>{{currentUser.firstName}}</p>
+                                <p>{{currentUser?.firstName}}</p>
                             </div>
                         </div>
                     </li>
@@ -29,7 +29,7 @@
                                 <p>Last Name</p>
                             </div>
                             <div class="col-sm-8">
-                                <p>{{currentUser.lastName}}</p>
+                                <p>{{currentUser?.lastName}}</p>
                             </div>
                         </div>
 
@@ -40,7 +40,7 @@
                                 <p>Username</p>
                             </div>
                             <div class="col-sm-8">
-                                <p>{{currentUser.userName}}</p>
+                                <p>{{currentUser?.userName}}</p>
 <!--                                <p><span><input [(ngModel)]="currentUser.userName" (change)="updateUserName(currentUser)" type="text" class="input-label"></span></p>-->
                             </div>
                         </div>
