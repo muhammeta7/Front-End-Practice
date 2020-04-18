@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Message} from "../messages/model/message";
 import {Channel} from "../channels/model/channel";
 import {UserService} from "../shared/user.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-sign-up',
@@ -21,7 +22,7 @@ export class SignUpComponent implements OnInit {
         channels: []
     };
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private router:Router) {
     }
 
     ngOnInit(): void {
@@ -30,7 +31,7 @@ export class SignUpComponent implements OnInit {
     createUser(): void {
         this.userService.createUser(this.userModel).subscribe(
                 res => {
-                    location.reload();
+                    this.router.navigate(['/login'])
                 },
                 err => {
                     alert("An error has occurred while creating user!");

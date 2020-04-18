@@ -15,9 +15,9 @@ import {Observable} from "rxjs";
 export class ChannelsComponent implements OnInit {
     channels: Channel[] = [];
     channelMessages: Message[] = [];
-    channelUsers: UserViewModel[] = [];
     isShow:boolean = false;
-    currentUser:UserViewModel;
+    currentUser:UserViewModel = undefined;
+
 
     channelModel:Channel = {
         id: null,
@@ -35,11 +35,13 @@ export class ChannelsComponent implements OnInit {
         channel: null
     };
 
-    constructor(private channelService: ChannelService, private messageService: MessageService, private userService: UserService) { }
+    constructor(private channelService: ChannelService,
+                private messageService: MessageService,
+                private userService: UserService) { }
 
     ngOnInit() {
         this.getChannelsByUser(sessionStorage.getItem("username"));
-        console.log(sessionStorage.getItem("username"));
+        // console.log(sessionStorage.getItem("username"));
     }
 
     public showHiddenElement(){
@@ -86,6 +88,20 @@ export class ChannelsComponent implements OnInit {
                 alert("An error has occurred while creating Channel.");
             }
         );
+    }
+
+    createChannelI() {
+        // this.userService.getUserByUserName(sessionStorage.getItem("username")).subscribe(
+        //     data => { this.currentUser = data}
+        // );
+        // this.channelService.createChannelI(this.currentUser.id,this.channelModel).subscribe(
+        //     res => {
+        //         this.channelModel.id = res.id ;
+        //         this.channels.push(this.channelModel);
+        //     },error => {
+        //         alert("An error has occurred while creating Channel.");
+        //     }
+        // );
     }
 
     // createChannelUser() {

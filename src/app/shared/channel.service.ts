@@ -39,9 +39,9 @@ export class ChannelService {
         return this.http.get<Channel>(this.GET_CHANNEL_BYID + '/' + id)
     }
 
-    // createChannel(user: UserViewModel, channel:Channel){
-    //   return this.http.post<Channel>(this.CREATE_CHANNEL_URL1 + "/" + user.id, channel);
-    // }
+    createChannelI(id:number, channel:Channel){
+      return this.http.post<Channel>(this.CREATE_CHANNEL_URL + "/" + id, channel);
+    }
 
     createMessage(message: Message) {
         return this.http.post<Message>(this.CREATE_MESSAGE_URL, message);

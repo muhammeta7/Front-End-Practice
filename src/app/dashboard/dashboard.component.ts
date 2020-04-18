@@ -15,11 +15,10 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.userService.getUserByUserName(sessionStorage.getItem('username')).subscribe(
-            data => {this.currentUser = data}
-            );
-        console.log('=============================');
-        console.log(this.currentUser);
-        console.log('=============================');
+            data => {this.currentUser = data
+                console.log(data);
+            });
+
     }
 
     // updateUserName(updatedUser: UserViewModel){

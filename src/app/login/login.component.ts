@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../shared/authentication.service";
+import {UserViewModel} from "../sign-up/sign-up.component";
+
 
 
 @Component({
@@ -13,6 +15,8 @@ export class LoginComponent implements OnInit {
     username = "";
     password = "";
     invalidLogin = false;
+
+
 
     constructor(private router: Router, private loginService: AuthenticationService) {}
 
