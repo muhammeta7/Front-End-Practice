@@ -1,7 +1,54 @@
 <div class="container">
-    <ul class="list-group">
-        <li class="list-group-item">{{currentUser.firstName}}</li>
-        <li class="list-group-item">{{currentUser.lastName}}</li>
-        <li class="list-group-item">{{currentUser.userName}}</li>
-    </ul>
+    <div class="row dashboard-inner-container">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">Welcome back {{currentUser.userName}}</h4>
+            </div>
+            <div class="card-body">
+                <img class="card-img-top" src="https://i.imgur.com/adb9dOh.jpg">
+                <h5 class="card-title text-center">User Info</h5>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row no-gutters">
+                            <div class="col-sm-4">
+                                <p>First Name</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{currentUser.firstName}}</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row no-gutters">
+                            <div class="col-sm-4">
+                                <p>Last Name</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{currentUser.lastName}}</p>
+                            </div>
+                        </div>
+
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row no-gutters">
+                            <div class="col-sm-4">
+                                <p>Username</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{currentUser.userName}}</p>
+<!--                                <p><span><input [(ngModel)]="currentUser.userName" (change)="updateUserName(currentUser)" type="text" class="input-label"></span></p>-->
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+<!--                <a href="#" class="btn btn-primary">Go somewhere</a>-->
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+<!--<input [(ngModel)]="currentUser.userName" (change)="updateUserName(currentUser)" type="text" class="input-label">-->
+
+

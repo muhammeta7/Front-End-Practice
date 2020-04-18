@@ -72,7 +72,7 @@ const appRoutes: Routes = [
         FormsModule,
         HttpClientModule,
         AppRoutingModule,
-        RouterModule.forRoot(appRoutes, {enableTracing: true})
+        RouterModule.forRoot(appRoutes)
     ],
     providers: [
         { provide:HTTP_INTERCEPTORS, useClass:BasicAuthHttpInterceptorService, multi:true }

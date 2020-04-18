@@ -17,6 +17,18 @@ export class DashboardComponent implements OnInit {
         this.userService.getUserByUserName(sessionStorage.getItem('username')).subscribe(
             data => {this.currentUser = data}
             );
+        console.log('=============================');
+        console.log(this.currentUser);
+        console.log('=============================');
     }
 
+    // updateUserName(updatedUser: UserViewModel){
+    //     this.userService.updateUserName(updatedUser).subscribe(
+    //         result => {
+    //             sessionStorage.setItem(updatedUser.userName, result.userName);
+    //         },error => {
+    //             alert("Error updating user name")
+    //         }
+    //     );
+    // }
 }

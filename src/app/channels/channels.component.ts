@@ -5,6 +5,7 @@ import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'app-channels',
@@ -16,6 +17,7 @@ export class ChannelsComponent implements OnInit {
     channelMessages: Message[] = [];
     channelUsers: UserViewModel[] = [];
     isShow:boolean = false;
+    currentUser:UserViewModel;
 
     channelModel:Channel = {
         id: null,
@@ -36,7 +38,8 @@ export class ChannelsComponent implements OnInit {
     constructor(private channelService: ChannelService, private messageService: MessageService, private userService: UserService) { }
 
     ngOnInit() {
-        this.getAllChannels();
+        this.getChannelsByUser(sessionStorage.getItem("username"));
+        console.log(sessionStorage.getItem("username"));
     }
 
     public showHiddenElement(){
@@ -49,6 +52,16 @@ export class ChannelsComponent implements OnInit {
                 this.channels = res;
             },
             error => {
+                alert("An error has occurred.");
+            }
+        );
+    }
+
+    public getChannelsByUser(username: string){
+        this.userService.getAllChannelsByUser(username).subscribe(
+            res => {
+                this.channels = res;
+            }, error =>{
                 alert("An error has occurred.");
             }
         );
@@ -93,7 +106,7 @@ export class ChannelsComponent implements OnInit {
             res => {
 
             },error => {
-                alert("An error has occurred while updating Channel");
+                alert("An error has occurred while updating Channel")
             }
         );
     }

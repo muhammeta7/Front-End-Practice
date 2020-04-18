@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {Channel} from "../channels/model/channel";
 import {Message} from "../messages/model/message";
 import {HttpClient} from "@angular/common/http";
+import {UserService} from "./user.service";
 
 @Injectable({
     providedIn: 'root'
@@ -10,11 +11,6 @@ import {HttpClient} from "@angular/common/http";
 export class ChannelService {
     private BASE_URL = "http://localhost:8080";
     private BASE_MESSAGES_URL = `${this.BASE_URL}/messages`;
-
-    constructor(private http: HttpClient) {
-
-    }
-
     // CHANNEL ENDPOINTS
     private BASE_CHANNELS_URL = `${this.BASE_URL}/channels`;
     // TODO Channels Always Being created by user 1
@@ -25,6 +21,10 @@ export class ChannelService {
     private GET_CHANNEL_MESSAGES = `${this.BASE_CHANNELS_URL}/chat/`;
     private CREATE_MESSAGE_URL = `${this.BASE_MESSAGES_URL}/channel/1/sender/1`;
 
+
+    constructor(private http: HttpClient, private userService: UserService ) {
+
+    }
 
     //
     getAllChannels(): Observable<Channel[]> {
