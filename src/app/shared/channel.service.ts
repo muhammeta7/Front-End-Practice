@@ -12,11 +12,11 @@ export class ChannelService {
     private BASE_URL = "http://localhost:8080";
     private BASE_MESSAGES_URL = `${this.BASE_URL}/messages`;
     // CHANNEL ENDPOINTS
-    private BASE_CHANNELS_URL = `${this.BASE_URL}/channels`;
+    private BASE_CHANNELS_URL = `${this.BASE_URL}/channels/`;
     // TODO Channels Always Being created by user 1
     private GET_CHANNEL_BYID = `${this.BASE_CHANNELS_URL}`;
-    private CREATE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}/create/user/`;
-    private DELETE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}/`;
+    private CREATE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}create/user/`;
+    private DELETE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}`;
 
     constructor(private http: HttpClient) {
 

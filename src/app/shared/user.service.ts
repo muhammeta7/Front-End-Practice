@@ -23,6 +23,10 @@ export class UserService {
     }
 
     // USER CRUD Operations
+    getAllUsers(): Observable<UserViewModel[]>{
+        return this.http.get<UserViewModel[]>(this.BASE_USERS_URL);
+    }
+
     getUserByUserName(username: string): Observable<any> {
         return this.http.get<UserViewModel>(this.GET_BY_USERNAME+ username);
     }

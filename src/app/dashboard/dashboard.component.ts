@@ -8,7 +8,7 @@ import {UserService} from "../shared/user.service";
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    currentUser: UserViewModel = undefined;
+    currentUser: UserViewModel;
 
     constructor(private userService: UserService) {
     }
@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
         this.userService.getUserByUserName(sessionStorage.getItem('username')).subscribe(
             data => {
                 this.currentUser = data;
+                data.connected = true;
                 console.log(data);
             });
 

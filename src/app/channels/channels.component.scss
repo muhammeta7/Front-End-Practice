@@ -11,7 +11,10 @@
   margin-top: 20px;
 }
 
-
+// Users
+#connection{
+  padding-right: 4%;
+}
 // Button Backgrounds
 #addChannel{
   background: url("https://i.imgur.com/cK1tC6c.png");
@@ -43,6 +46,11 @@
   color: deepskyblue;
 }
 
+.fa-lock:hover{
+  font-size: 1.1rem;
+  color: deepskyblue;
+}
+
 //
 .list-group-item{
   cursor: pointer;
@@ -59,10 +67,6 @@
 }
 
 // Message Details
-.list-group-flush li:nth-child(1){
-  margin-top: -2%;
-}
-
 .list-group-flush li{
   background: url("https://i.imgur.com/9hXkgVS.png");
 }
@@ -78,13 +82,12 @@
   font-size: .7rem;
 }
 
-.fa fa-edit{
+.fa-edit{
   font-size: .7rem;
 }
 
 .messages{
   padding-left: 3%;
-  margin-top: -3%;
   font-size: .65rem;
 }
 

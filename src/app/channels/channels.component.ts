@@ -5,8 +5,6 @@ import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
-import {Observable} from "rxjs";
-import { SESSION_STORAGE } from 'ngx-webstorage-service';
 
 @Component({
     selector: 'app-channels',
@@ -47,12 +45,24 @@ export class ChannelsComponent implements OnInit {
         this.userService.getUserByUserName(sessionStorage.getItem('username')).subscribe(
             data => {
                 this.currentUser = data;
+                data.connected = true;
                 console.log(data);
             });
+        this.getAllUsers();
     }
 
     public showHiddenElement(){
         this.isShow = !this.isShow;
+    }
+
+    public getAllUsers(){
+        this.userService.getAllUsers().subscribe(
+            res => {
+                this.channelUsers = res;
+            }, error => {
+                alert("Error");
+            }
+        );
     }
 
     public getAllPublicChannels(){
@@ -83,7 +93,7 @@ export class ChannelsComponent implements OnInit {
             }, error => {
                 alert("This channel does not exist.");
             }
-        )
+        );
     }
 
     sendMessage2(messageModel: Message) {
@@ -96,7 +106,6 @@ export class ChannelsComponent implements OnInit {
                 alert("Error while sending message.");
             }
         );
-
     }
 
     createChannel() {
@@ -139,9 +148,6 @@ export class ChannelsComponent implements OnInit {
         this.messageService.getChannelMessages(channel.id).subscribe(
             res => {
                 this.channelMessages = res;
-                console.log(res);
-                console.log("-----------------------");
-                console.log(this.channelMessages);
             },
             error => {
                 alert("Error occurred while retrieving messages");
