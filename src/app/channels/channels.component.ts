@@ -6,6 +6,7 @@ import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
 import {Observable} from "rxjs";
+import { SESSION_STORAGE } from 'ngx-webstorage-service';
 
 @Component({
     selector: 'app-channels',
@@ -15,10 +16,10 @@ import {Observable} from "rxjs";
 export class ChannelsComponent implements OnInit {
     channels: Channel[] = [];
     channelMessages: Message[] = [];
+    channelUsers: UserViewModel[] = [];
     isShow:boolean = false;
     currentUser:UserViewModel;
-    channel:Channel;
-
+    currentChannelId:number = 0;
 
     channelModel:Channel = {
         id: null,
@@ -38,7 +39,8 @@ export class ChannelsComponent implements OnInit {
 
     constructor(private channelService: ChannelService,
                 private messageService: MessageService,
-                private userService: UserService) { }
+                private userService: UserService
+    ) { }
 
     ngOnInit() {
         this.getChannelsByUser(sessionStorage.getItem("username"));
@@ -53,7 +55,7 @@ export class ChannelsComponent implements OnInit {
         this.isShow = !this.isShow;
     }
 
-    public getAllChannels(){
+    public getAllPublicChannels(){
         this.channelService.getAllChannels().subscribe(
             res => {
                 this.channels = res;
@@ -84,12 +86,25 @@ export class ChannelsComponent implements OnInit {
         )
     }
 
+    sendMessage2(messageModel: Message) {
+        console.log(this.currentChannelId);
+        this.messageService.createMessageWorks(this.currentChannelId,this.currentUser.id, messageModel).subscribe(
+            res => {
+                this.messageModel = res;
+                this.channelMessages.push(this.messageModel);
+            },error => {
+                alert("Error while sending message.");
+            }
+        );
+
+    }
 
     createChannel() {
         this.channelService.createChannel(this.currentUser.id,this.channelModel).subscribe(
             res => {
                 this.channelModel.id = res.id ;
                 this.channels.push(this.channelModel);
+                console.log(res);
             },error => {
                 alert("An error has occurred while creating Channel.");
             }
@@ -120,9 +135,13 @@ export class ChannelsComponent implements OnInit {
     }
 
     getChannelMessages(channel: Channel){
+        this.currentChannelId = channel.id;
         this.messageService.getChannelMessages(channel.id).subscribe(
             res => {
                 this.channelMessages = res;
+                console.log(res);
+                console.log("-----------------------");
+                console.log(this.channelMessages);
             },
             error => {
                 alert("Error occurred while retrieving messages");
@@ -130,27 +149,4 @@ export class ChannelsComponent implements OnInit {
         );
     }
 
-    sendMessage(message:Message){
-        this.channelService.createMessage(message).subscribe(
-            res => {
-                this.messageModel.id = res.id;
-                this.messageModel.sender = res.sender;
-                this.channelMessages.push(this.messageModel);
-            }, error => {
-                alert("Error while creating message.");
-            }
-        );
-    }
-
-    // sendMessage(messageModel: Message) {
-    //     this.channelService.createMessage(this.currentUser.id, this.channelModel.id,messageModel).subscribe(
-    //         res => {
-    //             console.log(this.channelModel.id);
-    //             this.messageModel.id = res.id;
-    //             this.channelMessages.push(this.messageModel);
-    //         }, error => {
-    //             alert("Error while creating message.");
-    //         }
-    //     );
-    // }
 }
