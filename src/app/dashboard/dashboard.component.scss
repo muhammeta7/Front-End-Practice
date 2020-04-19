@@ -1,0 +1,34 @@
+.card{
+  margin-top: 7%;
+}
+
+
+.dashboard-inner-container{
+  max-width: 50vw;
+  height: auto;
+  margin: 0 auto;
+}
+
+.card-header{
+  background: url("https://i.imgur.com/LDiWP91.png");
+  color: white;
+}
+
+.card-title{
+  padding-top: 2%;
+}
+
+.input-label{
+  background: rgba(0,0,0,0);
+  border: none;
+  cursor: none;
+  color: black;
+  padding-left: 4%;
+  font-size: 1rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .dashboard-inner-container {
+    max-width: 80vw;
+  }
+}

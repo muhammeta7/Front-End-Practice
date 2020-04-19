@@ -10,6 +10,16 @@
 .userChannels{
   margin-top: 20px;
 }
+
+// Users
+#connection{
+  padding-right: 4%;
+  padding-left: 4%;
+}
+
+#users{
+  padding: 2%;
+}
 // Button Backgrounds
 #addChannel{
   background: url("https://i.imgur.com/cK1tC6c.png");
@@ -23,6 +33,7 @@
 .channelBut{
   color: #77796d;
 }
+
 // Icons and Buttons
 .fa-plus:hover {
   content: "\f067";
@@ -40,6 +51,11 @@
   color: deepskyblue;
 }
 
+.fa-lock:hover{
+  font-size: 1.1rem;
+  color: deepskyblue;
+}
+
 //
 .list-group-item{
   cursor: pointer;
@@ -51,27 +67,11 @@
   border: none;
   cursor: none;
   color: black;
-  padding-left: 15px;
+  padding-left: 4%;
+  font-size: 1rem;
 }
-
-// Fields
-//.fields{
-//  border-bottom: 1px;
-//  border-style: solid;
-//  border-color: black;
-//  margin-top: -2px;
-//}
-//
-//.titles{
-//  margin-bottom: -1px;
-//  padding-bottom: 5px;
-//}
 
 // Message Details
-.list-group-flush li:nth-child(1){
-  margin-top: -2%;
-}
-
 .list-group-flush li{
   background: url("https://i.imgur.com/9hXkgVS.png");
 }
@@ -84,19 +84,22 @@
   padding-left: 3%;
   padding-top: 1%;
   font-weight: bold;
-  font-family: Georgia;
+  font-size: .7rem;
+}
+
+.fa-edit{
   font-size: .7rem;
 }
 
 .messages{
+  margin-top: -3%;
   padding-left: 3%;
-  margin-top: -3.5%;
   font-size: .65rem;
 }
 
 .stamp{
-  padding-right: 10%;
   font-size: 0.5rem;
+  padding-right: 9%;
   color: dimgray;
 }
 

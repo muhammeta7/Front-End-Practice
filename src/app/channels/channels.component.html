@@ -1,16 +1,39 @@
 <div class="container">
     <div class="row">
-        <!--   Left Column  -->
-        <div class="col-sm-5">
+
+
+        <!----------------------------    Users Column  -------------------------- -->
+        <div class="col-sm-2">
+            <div class="row panel">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <h6 class="card-header text-center">Users</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 container">
+                    <ul class="list-group list-group-flush">
+                        <li *ngFor="let user of channelUsers" id="users" class="list-group-item">
+                            <span><i class="fa fa-circle-o" id="connection"></i>{{user.userName}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+<!----------------------------    Channels Column  -------------------------- -->
+        <div class="col-sm-4">
             <!--   Channel Panel  -->
             <div class="row panel">
                 <div class="col-sm-12">
                     <div class="card">
-                        <h6 class="card-header text-center">Create A Channels</h6>
+                        <h6 class="card-header text-center">Create A Channel</h6>
                     </div>
                 </div>
             </div>
-            <!--   Create Channel Row  -->
+            <!--  Create Channel Row  -->
             <div class="row createChannel">
                 <div class="col-sm-12 input-group create">
                     <input type="text"
@@ -21,35 +44,51 @@
                            aria-label="Search"
                            aria-describedby="basic-addon1"
                            [(ngModel)]="channelModel.channelName">
-
                     <div class="input-group-append">
-                        <button class="btn btn-lg"
-                                type="button"
-                                (click)="createChannel()"
-                                class="btn channelBut"
-                                id="addChannel">
-                            <span><i class="fa fa-plus text-center"></i></span>
-                        </button>
+                        <span class="input-group-text"><i (click)="createChannel()" class="fa fa-plus text-center" id="addChannel"></i></span>
                     </div>
                 </div>
             </div>
 
+            <!--   User Channels  -->
             <div class="row userChannels">
                 <div class="col-sm-12">
                     <div class="card">
-                        <h6 class="card-header text-center">NamePH Channels</h6>
+                        <h6 class="card-header text-center">{{currentUser?.firstName}} Channels</h6>
                     </div>
                 </div>
             </div>
 
-            <!--   Show Channels  -->
             <div class="row">
                 <div  class="input-group create col-sm-12">
                     <a *ngFor="let channel of channels" class="list-group-item list-group-item-action">
                         <input [(ngModel)]="channel.channelName" (change)="updateChannel(channel)" type="text" class="input-label">
                         <div class="input-group-append pull-right">
-                            <span class="input-group-text"><i class="fa fa-eye" id="view" (click)="getChannelMessages(channel)"></i></span>
+                            <span class="input-group-text"><i class="fa fa-lock" (click)="updateChannelPrivacy(channel)"></i></span>
+                            <span class="input-group-text"><i class="fa fa-eye" id="view" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
                             <span class="input-group-text"><i class="fa fa-trash-o" id="trash" (click)="deleteChannel(channel)"></i></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!--   Public Channels  -->
+            <div class="row userChannels">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <h6 class="card-header text-center">Public Channels</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div  class="input-group create col-sm-12">
+                    <a *ngFor="let channel of publicChannels" class="list-group-item list-group-item-action">
+                        <label>
+                            <input [(ngModel)]="channel.channelName" type="text" class="input-label">
+                        </label>
+                        <div class="input-group-append pull-right">
+                            <span class="input-group-text"><i class="fa fa-eye" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
                         </div>
                     </a>
                 </div>
@@ -57,9 +96,8 @@
 
         </div>
 
-
-        <!---------------------   Right Column  --------------------->
-        <div class="col-sm-7">
+        <!---------------------   Channel Messages Column  --------------------->
+        <div class="col-sm-6">
 
             <!--   Channel Panel  -->
             <div class="row panel">
@@ -73,15 +111,18 @@
 
             <!--   Channels Messages  -->
             <div class="row">
-                <div class="container">
+                <div class="container col-sm-12">
                     <ul class="list-group list-group-flush">
                         <li *ngFor="let message of channelMessages" class="list-group-item">
                             <div class="row sender">
                                 <div class="col-sm-8">
                                     <p class="username">{{message.sender.userName}}</p>
                                 </div>
-                                <div class="col-sm-4">
-                                    <p class="stamp text-right">{{message.timestamp | date:'M/d/yy-h:mm a'}}</p>
+                                <div class="col-sm-3 text-right">
+                                    <p class="stamp">{{message.timestamp | date:'M/d/yy-h:mm a'}}</p>
+                                </div>
+                                <div class="col-sm-1">
+                                    <i class="fa fa-edit"></i>
                                 </div>
                             </div>
                             <div class="row messages">
@@ -94,31 +135,23 @@
                 </div>
             </div>
 
-<!--            &lt;!&ndash;   Create Channel Row  &ndash;&gt;-->
-<!--            <div class="row createChannel">-->
-<!--                <div class="col-sm-12 input-group create">-->
-<!--                    <input type="text"-->
-<!--                           class="form-control"-->
-<!--                           id="channelName1"-->
-<!--                           name="channelName1"-->
-<!--                           placeholder="Channel Name"-->
-<!--                           aria-label="Search"-->
-<!--                           aria-describedby="basic-addon1"-->
-<!--                           [(ngModel)]="channelModel.channelName">-->
 
-<!--                    <div class="input-group-append">-->
-<!--                        <button class="btn btn-lg"-->
-<!--                                type="button"-->
-<!--                                (click)="createChannelUser()"-->
-<!--                                class="btn channelBut"-->
-<!--                                id="addChannel1">-->
-<!--                            <span><i class="fa fa-plus text-center"></i></span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+            <!--    Add Message to Channel  -->
+            <div *ngIf="isShow" class="row">
+                <div  class="col-sm-12 form-group">
+                    <label for="addMessage" class="container">Send a new message</label>
+                    <textarea [(ngModel)]="messageModel.content"
+                              (keyup.enter)="sendMessage2(messageModel)"
+                              class="form-control"
+                              id="addMessage"
+                              rows="2">
+                    </textarea>
+                </div>
+            </div>
 
         </div>
+
+
 
     </div>
 </div>
