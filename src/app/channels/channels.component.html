@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-sm-12 container">
                     <ul class="list-group list-group-flush">
-                        <li *ngFor="let user of channelUsers" class="list-group-item">
+                        <li *ngFor="let user of channelUsers" id="users" class="list-group-item">
                             <span><i class="fa fa-circle-o" id="connection"></i>{{user.userName}}</span>
                         </li>
                     </ul>
@@ -64,7 +64,7 @@
                     <a *ngFor="let channel of channels" class="list-group-item list-group-item-action">
                         <input [(ngModel)]="channel.channelName" (change)="updateChannel(channel)" type="text" class="input-label">
                         <div class="input-group-append pull-right">
-                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                            <span class="input-group-text"><i class="fa fa-lock" (click)="updateChannelPrivacy(channel)"></i></span>
                             <span class="input-group-text"><i class="fa fa-eye" id="view" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
                             <span class="input-group-text"><i class="fa fa-trash-o" id="trash" (click)="deleteChannel(channel)"></i></span>
                         </div>
@@ -83,7 +83,7 @@
 
             <div class="row">
                 <div  class="input-group create col-sm-12">
-                    <a *ngFor="let channel of channels" class="list-group-item list-group-item-action">
+                    <a *ngFor="let channel of publicChannels" class="list-group-item list-group-item-action">
                         <label>
                             <input [(ngModel)]="channel.channelName" type="text" class="input-label">
                         </label>

@@ -22,7 +22,7 @@ export class ChannelService {
 
     }
 
-    //
+    // Channel CRUD operations
     getAllChannels(): Observable<Channel[]> {
         return this.http.get<Channel[]>(this.BASE_CHANNELS_URL);
     }
@@ -33,6 +33,10 @@ export class ChannelService {
 
     createChannel(id:number, channel:Channel){
       return this.http.post<Channel>(this.CREATE_CHANNEL_URL + id, channel);
+    }
+
+    updatePrivacy(channel:Channel): Observable<Channel>{
+        return this.http.put<Channel>(this.BASE_CHANNELS_URL + channel.id + '/changePrivacy', channel);
     }
 
     deleteChannel(id: number): Observable<any> {

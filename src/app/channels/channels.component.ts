@@ -19,6 +19,8 @@ export class ChannelsComponent implements OnInit {
     currentUser:UserViewModel;
     currentChannelId:number = 0;
 
+    publicChannels:Channel[] = [];
+
     channelModel:Channel = {
         id: null,
         channelName:'',
@@ -126,6 +128,22 @@ export class ChannelsComponent implements OnInit {
 
             },error => {
                 alert("An error has occurred while updating Channel")
+            }
+        );
+    }
+
+    // TODO fix it so you cant keep adding the channel to public channels array
+    updateChannelPrivacy(updatedChannel: Channel){
+        this.channelService.updatePrivacy(updatedChannel).subscribe(
+            res => {
+                updatedChannel.isPrivate = res.isPrivate;
+                if(res.isPrivate === true){
+                    this.channels.push(updatedChannel);
+                } else {
+                    this.publicChannels.push(updatedChannel);
+                }
+            },error => {
+                alert("error");
             }
         );
     }
