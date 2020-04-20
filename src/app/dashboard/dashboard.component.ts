@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserViewModel} from "../sign-up/sign-up.component";
 import {UserService} from "../shared/user.service";
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @Component({
     selector: 'app-dashboard',
