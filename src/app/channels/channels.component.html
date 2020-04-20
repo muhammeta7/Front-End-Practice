@@ -116,10 +116,10 @@
                         <li *ngFor="let message of channelMessages" class="list-group-item">
                             <div class="row sender">
                                 <div class="col-sm-8">
-                                    <p class="username">{{message.sender.userName}}</p>
+                                    <p class="username">{{message.sender?.userName}}</p>
                                 </div>
                                 <div class="col-sm-3 text-right">
-                                    <p class="stamp">{{message.timestamp | date:'M/d/yy-h:mm a'}}</p>
+                                    <p class="stamp">{{message?.timestamp | date:'M/d/yy-h:mm a'}}</p>
                                 </div>
                                 <div class="col-sm-1">
                                     <i class="fa fa-edit"></i>
@@ -127,7 +127,7 @@
                             </div>
                             <div class="row messages">
                                 <div class="col-12">
-                                    <p class="content">{{message.content}}</p>
+                                    <p class="content">{{message?.content}}</p>
                                 </div>
                             </div>
                         </li>
@@ -139,13 +139,17 @@
             <!--    Add Message to Channel  -->
             <div *ngIf="isShow" class="row">
                 <div  class="col-sm-12 form-group">
-                    <label for="addMessage" class="container">Send a new message</label>
-                    <textarea [(ngModel)]="messageModel.content"
-                              (keyup.enter)="sendMessage2(messageModel)"
+
+                    <label for="addMessage" class="container"></label>
+                    <textarea placeholder="Type your message here. Hit enter to send."
                               class="form-control"
+                              [(ngModel)]="messageModel.content"
+                              (keyup.enter)="sendMessage2(messageModel);messageModel.content ='';"
                               id="addMessage"
-                              rows="2">
+                              rows="2"
+                    >
                     </textarea>
+
                 </div>
             </div>
 
