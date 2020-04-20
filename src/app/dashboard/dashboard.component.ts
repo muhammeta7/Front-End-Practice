@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
                 data.connected = true;
                 console.log(data);
             });
-
     }
 
     // updateUserName(updatedUser: UserViewModel){

@@ -15,12 +15,22 @@ export class ChannelsComponent implements OnInit {
     channels: Channel[] = [];
     channelMessages: Message[] = [];
     channelUsers: UserViewModel[] = [];
-    currentUser:UserViewModel;
     currentChannelId:number = 0;
 
     isShow:boolean = false;
 
     publicChannels:Channel[] = [];
+
+    currentUser:UserViewModel = {
+        id: null,
+        firstName: '',
+        lastName: '',
+        connected: true,
+        userName: '',
+        password: '',
+        messages: [],
+        channels: []
+    };
 
     channelModel:Channel = {
         id: null,
@@ -61,11 +71,11 @@ export class ChannelsComponent implements OnInit {
         this.isShow = !this.isShow;
     }
 
-
     public getAllUsers(){
         this.userService.getAllUsers().subscribe(
             res => {
                 this.channelUsers = res;
+                console.log(this.channelUsers);
             }, error => {
                 alert("Error");
             }
@@ -103,8 +113,8 @@ export class ChannelsComponent implements OnInit {
         );
     }
 
-    sendMessage2(messageModel: Message) {
-        this.messageService.createMessageWorks(this.currentChannelId,this.currentUser.id, messageModel).subscribe(
+    sendMessage(messageModel: Message) {
+        this.messageService.createMessage(this.currentChannelId,this.currentUser.id, messageModel).subscribe(
             res => {
                 this.newMessage = res;
                 this.channelMessages.push(this.newMessage);

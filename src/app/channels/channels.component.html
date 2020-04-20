@@ -22,6 +22,14 @@
             </div>
         </div>
 
+<!--        <span><i [ngClass]="{-->
+<!--                                    'online': user.connected === true,-->
+<!--                                    'offline': user.connected === false-->
+<!--                                     }"-->
+<!--                 class="fa fa-circle-o"-->
+<!--                 id="connection">-->
+<!--                            </i>{{user.userName}}</span>-->
+
 
 <!----------------------------    Channels Column  -------------------------- -->
         <div class="col-sm-4">
@@ -144,7 +152,7 @@
                     <textarea placeholder="Type your message here. Hit enter to send."
                               class="form-control"
                               [(ngModel)]="messageModel.content"
-                              (keyup.enter)="sendMessage2(messageModel);messageModel.content ='';"
+                              (keyup.enter)="sendMessage(messageModel);messageModel.content ='';"
                               id="addMessage"
                               rows="2"
                     >
