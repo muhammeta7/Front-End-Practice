@@ -51,6 +51,7 @@ export class ChannelsComponent implements OnInit {
                 console.log(data);
             });
         this.getAllUsers();
+        this.getAllPublicChannels();
     }
 
     public showHiddenElement(){
@@ -68,9 +69,9 @@ export class ChannelsComponent implements OnInit {
     }
 
     public getAllPublicChannels(){
-        this.channelService.getAllChannels().subscribe(
+        this.channelService.getAllPublicChannels().subscribe(
             res => {
-                this.channels = res;
+                this.publicChannels = res;
             },
             error => {
                 alert("An error has occurred.");
@@ -82,6 +83,8 @@ export class ChannelsComponent implements OnInit {
         this.userService.getAllChannelsByUser(username).subscribe(
             res => {
                 this.channels = res;
+                console.log(this.channels);
+                console.log(res);
             }, error =>{
                 alert("An error has occurred.");
             }
@@ -132,16 +135,16 @@ export class ChannelsComponent implements OnInit {
         );
     }
 
-    // TODO fix it so you cant keep adding the channel to public channels array
     updateChannelPrivacy(updatedChannel: Channel){
+        if(!updatedChannel.isPrivate){
+            this.publicChannels = this.publicChannels.filter(obj => obj.id !== updatedChannel.id);
+        } else {
+            this.publicChannels.push(updatedChannel);
+        }
+        updatedChannel.isPrivate = !updatedChannel.isPrivate;
         this.channelService.updatePrivacy(updatedChannel).subscribe(
             res => {
-                updatedChannel.isPrivate = res.isPrivate;
-                if(res.isPrivate === true){
-                    this.channels.push(updatedChannel);
-                } else {
-                    this.publicChannels.push(updatedChannel);
-                }
+                console.log(updatedChannel);
             },error => {
                 alert("error");
             }

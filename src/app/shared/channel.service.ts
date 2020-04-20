@@ -13,7 +13,7 @@ export class ChannelService {
     private BASE_MESSAGES_URL = `${this.BASE_URL}/messages`;
     // CHANNEL ENDPOINTS
     private BASE_CHANNELS_URL = `${this.BASE_URL}/channels/`;
-    // TODO Channels Always Being created by user 1
+    private PUBLIC_CHANNELS = `${this.BASE_CHANNELS_URL}public`;
     private GET_CHANNEL_BYID = `${this.BASE_CHANNELS_URL}`;
     private CREATE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}create/user/`;
     private DELETE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}`;
@@ -33,6 +33,10 @@ export class ChannelService {
 
     createChannel(id:number, channel:Channel){
       return this.http.post<Channel>(this.CREATE_CHANNEL_URL + id, channel);
+    }
+
+    getAllPublicChannels(): Observable<Channel[]>{
+        return this.http.get<Channel[]>(this.PUBLIC_CHANNELS);
     }
 
     updatePrivacy(channel:Channel): Observable<Channel>{
