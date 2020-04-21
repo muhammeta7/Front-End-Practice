@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {Message} from "../messages/model/message";
 import {Channel} from "../channels/model/channel";
 import {UserService} from "../shared/user.service";
 import {Router} from "@angular/router";
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal'
+
 
 @Component({
     selector: 'app-sign-up',
@@ -10,6 +12,11 @@ import {Router} from "@angular/router";
     styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+    modalRef: BsModalRef;
+    config = {
+        class: 'modal-dialog-centered modal-small',
+        animated: true
+    };
 
     userModel: UserViewModel = {
         id: null,
@@ -22,7 +29,7 @@ export class SignUpComponent implements OnInit {
         channels: []
     };
 
-    constructor(private userService: UserService, private router:Router) {
+    constructor(private userService: UserService, private router:Router, private modalService: BsModalService) {
     }
 
     ngOnInit(): void {
@@ -39,7 +46,9 @@ export class SignUpComponent implements OnInit {
         );
     }
 
-
+    openModal(template: TemplateRef<any>) {
+        this.modalRef = this.modalService.show(template, this.config);
+    }
 
 }
 
@@ -53,3 +62,4 @@ export interface UserViewModel {
     messages: Message[];
     channels: Channel[];
 }
+

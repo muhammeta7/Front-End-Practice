@@ -15,11 +15,22 @@ export class ChannelsComponent implements OnInit {
     channels: Channel[] = [];
     channelMessages: Message[] = [];
     channelUsers: UserViewModel[] = [];
-    isShow:boolean = false;
-    currentUser:UserViewModel;
     currentChannelId:number = 0;
 
+    isShow:boolean = false;
+
     publicChannels:Channel[] = [];
+
+    currentUser:UserViewModel = {
+        id: null,
+        firstName: '',
+        lastName: '',
+        connected: true,
+        userName: '',
+        password: '',
+        messages: [],
+        channels: []
+    };
 
     channelModel:Channel = {
         id: null,
@@ -36,6 +47,8 @@ export class ChannelsComponent implements OnInit {
         sender: null,
         channel: null
     };
+
+    newMessage:Message = null;
 
     constructor(private channelService: ChannelService,
                 private messageService: MessageService,
@@ -83,8 +96,6 @@ export class ChannelsComponent implements OnInit {
         this.userService.getAllChannelsByUser(username).subscribe(
             res => {
                 this.channels = res;
-                console.log(this.channels);
-                console.log(res);
             }, error =>{
                 alert("An error has occurred.");
             }
@@ -101,12 +112,11 @@ export class ChannelsComponent implements OnInit {
         );
     }
 
-    sendMessage2(messageModel: Message) {
-        console.log(this.currentChannelId);
-        this.messageService.createMessageWorks(this.currentChannelId,this.currentUser.id, messageModel).subscribe(
+    sendMessage(messageModel: Message) {
+        this.messageService.createMessage(this.currentChannelId,this.currentUser.id, messageModel).subscribe(
             res => {
-                this.messageModel = res;
-                this.channelMessages.push(this.messageModel);
+                this.newMessage = res;
+                this.channelMessages.push(this.newMessage);
             },error => {
                 alert("Error while sending message.");
             }
@@ -144,7 +154,7 @@ export class ChannelsComponent implements OnInit {
         updatedChannel.isPrivate = !updatedChannel.isPrivate;
         this.channelService.updatePrivacy(updatedChannel).subscribe(
             res => {
-                console.log(updatedChannel);
+
             },error => {
                 alert("error");
             }

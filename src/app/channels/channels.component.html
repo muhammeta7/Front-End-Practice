@@ -13,14 +13,22 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 container">
-                    <ul class="list-group list-group-flush">
-                        <li *ngFor="let user of channelUsers" id="users" class="list-group-item">
+                    <ul *ngFor="let user of channelUsers" class="list-group list-group-flush">
+                        <li  *ngIf="user.id != this.currentUser.id"id="users" class="list-group-item">
                             <span><i class="fa fa-circle-o" id="connection"></i>{{user.userName}}</span>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+
+<!--        <span><i [ngClass]="{-->
+<!--                                    'online': user.connected === true,-->
+<!--                                    'offline': user.connected === false-->
+<!--                                     }"-->
+<!--                 class="fa fa-circle-o"-->
+<!--                 id="connection">-->
+<!--                            </i>{{user.userName}}</span>-->
 
 
 <!----------------------------    Channels Column  -------------------------- -->
@@ -72,6 +80,55 @@
                 </div>
             </div>
 
+            <!--   Direct Messages Panel  -->
+            <div class="row panel">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <h6 class="card-header text-center">Direct Messages</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row dmChannel">
+                <div class="col-sm-12 input-group create">
+                    <input type="text"
+                           class="form-control"
+                           id="directMessage"
+                           name="channelName"
+                           placeholder="Type Username to Create DM"
+                           aria-label="Search"
+                           aria-describedby="basic-addon1"
+                           [(ngModel)]="channelModel.channelName">
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i (click)="createChannel()" class="fa fa-plus text-center" id="username"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div  class="input-group create col-sm-12">
+                    <a *ngFor="let channel of channels" class="list-group-item list-group-item-action">
+                        <input [(ngModel)]="channel.channelName" type="text" class="input-label">
+                        <div class="input-group-append pull-right">
+                            <span class="input-group-text"><i class="fa fa-eye" id="view1" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
+                            <span class="input-group-text"><i class="fa fa-trash-o" id="trash1" (click)="deleteChannel(channel)"></i></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
             <!--   Public Channels  -->
             <div class="row userChannels">
                 <div class="col-sm-12">
@@ -96,6 +153,9 @@
 
         </div>
 
+
+
+
         <!---------------------   Channel Messages Column  --------------------->
         <div class="col-sm-6">
 
@@ -108,18 +168,14 @@
                 </div>
             </div>
 
-
             <!--   Channels Messages  -->
             <div class="row">
                 <div class="container col-sm-12">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush channelMessages">
                         <li *ngFor="let message of channelMessages" class="list-group-item">
                             <div class="row sender">
-                                <div class="col-sm-8">
-                                    <p class="username">{{message.sender.userName}}</p>
-                                </div>
-                                <div class="col-sm-3 text-right">
-                                    <p class="stamp">{{message.timestamp | date:'M/d/yy-h:mm a'}}</p>
+                                <div class="col-sm-11">
+                                    <p class="username">{{message.sender?.userName}}:  <span class="stamp"> {{message?.timestamp | date:'M/d/yy-h:mm a'}}</span></p>
                                 </div>
                                 <div class="col-sm-1">
                                     <i class="fa fa-edit"></i>
@@ -127,7 +183,7 @@
                             </div>
                             <div class="row messages">
                                 <div class="col-12">
-                                    <p class="content">{{message.content}}</p>
+                                    <p class="content">{{message?.content}}</p>
                                 </div>
                             </div>
                         </li>
@@ -135,17 +191,17 @@
                 </div>
             </div>
 
-
             <!--    Add Message to Channel  -->
             <div *ngIf="isShow" class="row">
-                <div  class="col-sm-12 form-group">
-                    <label for="addMessage" class="container">Send a new message</label>
-                    <textarea [(ngModel)]="messageModel.content"
-                              (keyup.enter)="sendMessage2(messageModel)"
-                              class="form-control"
+                <div  class="col-sm-12 form-group input">
+                    <textarea class="form-control"
+                              [(ngModel)]="messageModel.content"
+                              (keyup.enter)="sendMessage(messageModel);messageModel.content ='';"
                               id="addMessage"
-                              rows="2">
+                              rows="2"
+                    >
                     </textarea>
+                    <label for="addMessage" class="container">Send New Message</label>
                 </div>
             </div>
 
@@ -155,4 +211,5 @@
 
     </div>
 </div>
+
 

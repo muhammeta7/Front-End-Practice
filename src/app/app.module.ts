@@ -17,6 +17,10 @@ import {AppRoutingModule} from "./app-routing.module";
 import { LogoutComponent } from './logout/logout.component';
 import {BasicAuthHttpInterceptorService} from "./shared/basic-auth-http-interceptor.service";
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CarouselModule} from "ngx-bootstrap/carousel";
+import {ModalModule} from "ngx-bootstrap/modal";
+
 
 
 
@@ -74,7 +78,10 @@ const appRoutes: Routes = [
         FormsModule,
         HttpClientModule,
         AppRoutingModule,
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes),
+        BrowserAnimationsModule,
+        CarouselModule.forRoot(),
+        ModalModule.forRoot()
     ],
     providers: [
         { provide:HTTP_INTERCEPTORS, useClass:BasicAuthHttpInterceptorService, multi:true }

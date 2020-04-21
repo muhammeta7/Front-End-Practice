@@ -10,6 +10,9 @@
 .userChannels{
   margin-top: 20px;
 }
+// Create Channel Animations
+
+
 
 // Users
 #connection{
@@ -19,6 +22,14 @@
 
 #users{
   padding: 2%;
+}
+
+.online{
+  color:green;
+}
+
+.offline{
+  color: red;
 }
 // Button Backgrounds
 #addChannel{
@@ -102,4 +113,66 @@
   padding-right: 9%;
   color: dimgray;
 }
+
+// Message Input styling
+.input{
+  margin: 0 auto;
+  font-size: 1em;
+
+  textarea{
+    height: 80px;
+    margin-top: 6%;
+    font-size: 1em;
+    background-color: transparent;
+    border: 1.5px solid #0099ef;
+    outline: none;
+    color: #0099ef;
+    padding-left: 10px;
+
+    &:focus + label{
+      top: -110px;
+      font-size: 1em;
+      transition: all .3s;
+      color: rgba(85, 85, 85, 0.8);
+      padding-left: 2px;
+    }
+
+  }
+
+  label{
+    display: block;
+    position: relative;
+    left: 10px;
+    top: -70px;
+    font-size: 1em;
+    cursor: text;
+    color: #0099ef;
+    transition: all .3s;
+  }
+}
+
+#menu li{
+  width: 200px;
+  height: 50px;
+  background-color: gray;
+  color: lightgrey;
+  list-style-type: none;
+  margin: 5px;
+  text-align: center;
+  transition-property:margin-left;
+  transition-duration:1s;
+  transition-timing-function:linear;
+
+  /* Safari */
+  -webkit-transition-property:margin-left;
+  -webkit-transition-duration:1s;
+  -webkit-transition-timing-function:linear;
+
+}
+
+#menu li:hover{
+  margin-left: 25px;
+}
+
+
 

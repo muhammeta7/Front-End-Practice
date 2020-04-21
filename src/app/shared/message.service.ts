@@ -28,11 +28,8 @@ export class MessageService {
         return this.http.get<Message[]>(this.BASE_MESSAGES_URL);
     }
 
-    createMessage(message: Message) {
-        return this.http.post<Message>(this.CREATE_MESSAGE_URL, message);
-    }
 
-    createMessageWorks(channelId:number, userId:number, message: Message){
+    createMessage(channelId:number, userId:number, message: Message){
         return this.http.post<Message>(this.ACTUAL_CREATE_MESSAGE + channelId + '/sender/' + userId, message);
     }
 
