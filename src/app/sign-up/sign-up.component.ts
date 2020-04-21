@@ -3,7 +3,7 @@ import {Message} from "../messages/model/message";
 import {Channel} from "../channels/model/channel";
 import {UserService} from "../shared/user.service";
 import {Router} from "@angular/router";
-import {BsModalRef, BsModalService, ModalModule} from 'ngx-bootstrap/modal'
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal'
 
 
 @Component({
@@ -14,7 +14,8 @@ import {BsModalRef, BsModalService, ModalModule} from 'ngx-bootstrap/modal'
 export class SignUpComponent implements OnInit {
     modalRef: BsModalRef;
     config = {
-        class: 'modal-dialog-centered'
+        class: 'modal-dialog-centered modal-small',
+        animated: true
     };
 
     userModel: UserViewModel = {

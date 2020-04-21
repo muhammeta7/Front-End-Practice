@@ -104,6 +104,9 @@
 
         </div>
 
+
+
+
         <!---------------------   Channel Messages Column  --------------------->
         <div class="col-sm-6">
 
@@ -120,7 +123,7 @@
             <!--   Channels Messages  -->
             <div class="row">
                 <div class="container col-sm-12">
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush channelMessages">
                         <li *ngFor="let message of channelMessages" class="list-group-item">
                             <div class="row sender">
                                 <div class="col-sm-8">
@@ -146,18 +149,15 @@
 
             <!--    Add Message to Channel  -->
             <div *ngIf="isShow" class="row">
-                <div  class="col-sm-12 form-group">
-
-                    <label for="addMessage" class="container"></label>
-                    <textarea placeholder="Type your message here. Hit enter to send."
-                              class="form-control"
+                <div  class="col-sm-12 form-group input">
+                    <textarea class="form-control"
                               [(ngModel)]="messageModel.content"
                               (keyup.enter)="sendMessage(messageModel);messageModel.content ='';"
                               id="addMessage"
                               rows="2"
                     >
                     </textarea>
-
+                    <label for="addMessage" class="container">Send New Message</label>
                 </div>
             </div>
 
@@ -167,4 +167,5 @@
 
     </div>
 </div>
+
 
