@@ -83,8 +83,13 @@ h4{
 }
 
 // Inputs
-
-
+.modal-header{
+  background: url("https://i.imgur.com/LDiWP91.png");
+  color: #5be0f3;
+}
+.close{
+  color: #5be0f3;
+}
 // Success Checkmark
 .success-checkmark {
   width: 80px;
@@ -158,7 +163,7 @@ h4{
       border-radius: 50%;
       position: absolute;
       box-sizing: content-box;
-      border: 4px solid rgba(76, 175, 80, .5);
+      border: 4px solid #4CB317;
     }
 
     .icon-fix {
