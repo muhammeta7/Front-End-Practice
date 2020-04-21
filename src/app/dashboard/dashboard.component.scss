@@ -2,11 +2,23 @@
   margin-top: 7%;
 }
 
+.channels{
+  margin-top: 15%;
+}
 
-.dashboard-inner-container{
-  max-width: 50vw;
+//.dashboard-inner-container{
+//  max-width: 50vw;
+//  height: auto;
+//  margin: 0 auto;
+//}
+
+img{
+  max-width: 100%;
   height: auto;
-  margin: 0 auto;
+}
+
+li{
+  font-size: 1.5rem;
 }
 
 .card-header{
@@ -27,8 +39,8 @@
   font-size: 1rem;
 }
 
-@media only screen and (min-width: 600px) {
-  .dashboard-inner-container {
-    max-width: 80vw;
-  }
-}
+//@media only screen and (min-width: 600px) {
+//  .dashboard-inner-container {
+//    max-width: 80vw;
+//  }
+//}

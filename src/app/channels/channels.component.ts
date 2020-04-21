@@ -75,7 +75,6 @@ export class ChannelsComponent implements OnInit {
         this.userService.getAllUsers().subscribe(
             res => {
                 this.channelUsers = res;
-                console.log(this.channelUsers);
             }, error => {
                 alert("Error");
             }

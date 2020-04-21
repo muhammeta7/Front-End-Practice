@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {UserViewModel} from "../sign-up/sign-up.component";
 import {UserService} from "../shared/user.service";
-import { CarouselModule } from 'ngx-bootstrap/carousel';
+import {Channel} from "../channels/model/channel";
+
 
 @Component({
     selector: 'app-dashboard',
@@ -10,6 +11,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 })
 export class DashboardComponent implements OnInit {
     currentUser: UserViewModel;
+    privateChannels: Channel[];
+    users: UserViewModel[];
 
     constructor(private userService: UserService) {
     }
@@ -21,15 +24,28 @@ export class DashboardComponent implements OnInit {
                 data.connected = true;
                 console.log(data);
             });
+        this.getChannelsByUser(sessionStorage.getItem("username"));
+        this.getAllUsers();
     }
 
-    // updateUserName(updatedUser: UserViewModel){
-    //     this.userService.updateUserName(updatedUser).subscribe(
-    //         result => {
-    //             sessionStorage.setItem(updatedUser.userName, result.userName);
-    //         },error => {
-    //             alert("Error updating user name")
-    //         }
-    //     );
-    // }
+    public getChannelsByUser(username: string){
+        this.userService.getAllChannelsByUser(username).subscribe(
+            res => {
+                this.privateChannels = res;
+            }, error =>{
+                alert("An error has occurred.");
+            }
+        );
+    }
+
+    public getAllUsers(){
+        this.userService.getAllUsers().subscribe(
+            res => {
+                this.users = res;
+            }, error => {
+                alert("Error");
+            }
+        );
+    }
+
 }
