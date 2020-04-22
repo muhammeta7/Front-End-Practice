@@ -22,15 +22,6 @@
             </div>
         </div>
 
-<!--        <span><i [ngClass]="{-->
-<!--                                    'online': user.connected === true,-->
-<!--                                    'offline': user.connected === false-->
-<!--                                     }"-->
-<!--                 class="fa fa-circle-o"-->
-<!--                 id="connection">-->
-<!--                            </i>{{user.userName}}</span>-->
-
-
 <!----------------------------    Channels Column  -------------------------- -->
         <div class="col-sm-4">
             <!--   Channel Panel  -->
@@ -81,7 +72,7 @@
             </div>
 
             <!--   Direct Messages Panel  -->
-            <div class="row panel">
+            <div class="row userChannels">
                 <div class="col-sm-12">
                     <div class="card">
                         <h6 class="card-header text-center">Direct Messages</h6>
@@ -100,14 +91,14 @@
                            aria-describedby="basic-addon1"
                            [(ngModel)]="channelModel.channelName">
                     <div class="input-group-append">
-                        <span class="input-group-text"><i (click)="createChannel()" class="fa fa-plus text-center" id="username"></i></span>
+                        <span class="input-group-text"><i (click)="createDmChannel(this.channelModel.channelName)" class="fa fa-plus text-center" id="username"></i></span>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div  class="input-group create col-sm-12">
-                    <a *ngFor="let channel of channels" class="list-group-item list-group-item-action">
+                    <a *ngFor="let channel of dmChannels" class="list-group-item list-group-item-action">
                         <input [(ngModel)]="channel.channelName" type="text" class="input-label">
                         <div class="input-group-append pull-right">
                             <span class="input-group-text"><i class="fa fa-eye" id="view1" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
@@ -116,18 +107,6 @@
                     </a>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
             <!--   Public Channels  -->
             <div class="row userChannels">
@@ -139,11 +118,9 @@
             </div>
 
             <div class="row">
-                <div  class="input-group create col-sm-12">
-                    <a *ngFor="let channel of publicChannels" class="list-group-item list-group-item-action">
-                        <label>
-                            <input [(ngModel)]="channel.channelName" type="text" class="input-label">
-                        </label>
+                <div *ngFor="let channel of publicChannels"  class="input-group create col-sm-12">
+                    <a class="list-group-item list-group-item-action">
+                        <input [(ngModel)]="channel.channelName" type="text" class="input-label">
                         <div class="input-group-append pull-right">
                             <span class="input-group-text"><i class="fa fa-eye" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
                         </div>

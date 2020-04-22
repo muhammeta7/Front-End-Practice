@@ -11,27 +11,6 @@
                     <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && createUser()" novalidate
                           class="signup-form">
                         <!---- Firstname  ---->
-
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            <input type="text"
-                                   id="firstName"
-                                   name="firstName"
-                                   class="form-control"
-                                   placeholder="first name"
-                                   [(ngModel)]="userModel.firstName"
-                                   #firstName="ngModel"
-                                   [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
-                                   required minlength="3">
-                            <!---- input invalidation group  ---->
-                            <div *ngIf="f.submitted && firstName.invalid"
-                                 class="invalid-tooltip text-center w-100 error-message">
-                                <div *ngIf="firstName.errors?.required">Must be at least 3 characters</div>
-                            </div>
-                        </div>
-                        <!---- Lastname  ---->
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -40,7 +19,7 @@
                                    id="lastName"
                                    name="lastName"
                                    class="form-control"
-                                   placeholder="last name"
+                                   placeholder="first name"
                                    [(ngModel)]="userModel.lastName"
                                    #lastName="ngModel"
                                    [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
@@ -48,6 +27,27 @@
                             <div *ngIf="f.submitted && lastName.invalid"
                                  class="invalid-tooltip text-center w-100 mb-3 error-message">
                                 <div *ngIf="lastName.errors?.required">Must be at least 3 characters</div>
+                            </div>
+                        </div>
+
+                        <!---- Lastname  ---->
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text"
+                                   id="firstName"
+                                   name="firstName"
+                                   class="form-control"
+                                   placeholder="last name"
+                                   [(ngModel)]="userModel.firstName"
+                                   #firstName="ngModel"
+                                   [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
+                                   required minlength="3">
+                            <!---- input invalidation group  ---->
+                            <div *ngIf="f.submitted && firstName.invalid"
+                                 class="invalid-tooltip text-center w-100 error-message">
+                                <div *ngIf="firstName.errors?.required">Must be at least 3 characters</div>
                             </div>
                         </div>
                         <!---- Username  ---->
