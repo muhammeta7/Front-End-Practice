@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
 import {Channel} from "./model/channel";
 import {Message} from "../messages/model/message";
 import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
-import {Observable} from "rxjs";
+
+
 
 @Component({
     selector: 'app-channels',
     templateUrl: './channels.component.html',
     styleUrls: ['./channels.component.scss']
 })
-export class ChannelsComponent implements OnInit {
+export class ChannelsComponent implements OnInit, AfterContentInit {
     channels: Channel[] = [];
     channelMessages: Message[] = [];
-    channelUsers: UserViewModel[] = [];
+    channelUsers: any[] = [];
     currentChannelId:number = 0;
     isShow:boolean = false;
 
@@ -36,6 +37,7 @@ export class ChannelsComponent implements OnInit {
         id: null,
         channelName:'',
         isPrivate: true,
+        isDm:false,
         messages:[],
         users: []
     };
@@ -51,13 +53,35 @@ export class ChannelsComponent implements OnInit {
     newMessage:Message = null;
 
     dmChannels:Channel[] = [];
-    otherUser:Observable<any>;
-    dmChannelModel:Channel;
+
+    otherUser:UserViewModel = {
+        id: null,
+        firstName: '',
+        lastName: '',
+        connected: true,
+        userName: '',
+        password: '',
+        messages: [],
+        channels: []
+    };
+
+    dmChannelModel:Channel = {
+        id: null,
+        channelName:'',
+        isPrivate: true,
+        isDm:true,
+        messages:[],
+        users: []
+    };
 
     constructor(private channelService: ChannelService,
                 private messageService: MessageService,
                 private userService: UserService
     ) { }
+
+    ngAfterContentInit(): void {
+
+    }
 
     ngOnInit() {
         this.getChannelsByUser(sessionStorage.getItem("username"));
@@ -65,7 +89,7 @@ export class ChannelsComponent implements OnInit {
             data => {
                 this.currentUser = data;
                 data.connected = true;
-                console.log(data);
+                this.getDmChannels();
             });
         this.getAllUsers();
         this.getAllPublicChannels();
@@ -75,7 +99,7 @@ export class ChannelsComponent implements OnInit {
         this.isShow = !this.isShow;
     }
 
-    public getAllUsers(){
+    public getAllUsers(): UserViewModel[]{
         this.userService.getAllUsers().subscribe(
             res => {
                 this.channelUsers = res;
@@ -83,6 +107,7 @@ export class ChannelsComponent implements OnInit {
                 alert("Error");
             }
         );
+        return this.channelUsers;
     }
 
     public getAllPublicChannels(){
@@ -106,12 +131,14 @@ export class ChannelsComponent implements OnInit {
         );
     }
 
-    public getChannelById(id: number){
-        this.channelService.getChannelById(this.channelModel.id).subscribe(
+
+    public getDmChannels(){
+        this.userService.getAllDmChannels(this.currentUser.userName).subscribe(
             res => {
-                this.channelModel = res;
-            }, error => {
-                alert("This channel does not exist.");
+                this.dmChannels = res;
+                console.log(res);
+            },error => {
+                alert("An error has occurred.");
             }
         );
     }
@@ -130,9 +157,7 @@ export class ChannelsComponent implements OnInit {
     createChannel() {
         this.channelService.createChannel(this.currentUser.id,this.channelModel).subscribe(
             res => {
-                this.channelModel.id = res.id ;
-                this.channels.push(this.channelModel);
-                console.log(res);
+                this.channels.push(res);
             },error => {
                 alert("An error has occurred while creating Channel.");
             }
@@ -142,12 +167,7 @@ export class ChannelsComponent implements OnInit {
     createDmChannel(otherUserName:string){
         this.channelService.createDmChannel(this.currentUser.userName, otherUserName, this.dmChannelModel).subscribe(
             res => {
-                this.dmChannelModel.id = res.id;
-                this.otherUser = this.userService.getUserByUserName(otherUserName);
-                console.log(this.otherUser);
-                this.dmChannelModel.channelName = this.currentUser.userName + 'and' + otherUserName;
-                this.dmChannels.push(this.dmChannelModel);
-                console.log(res);
+                this.dmChannels.push(res);
             },error => {
                 alert("An error has occurred while creating Channel.");
             }
@@ -204,5 +224,7 @@ export class ChannelsComponent implements OnInit {
             }
         );
     }
+
+
 
 }

@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {Channel} from "../channels/model/channel";
-import {Message} from "../messages/model/message";
 import {HttpClient} from "@angular/common/http";
-import {UserService} from "./user.service";
+
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +16,8 @@ export class ChannelService {
     private GET_CHANNEL_BYID = `${this.BASE_CHANNELS_URL}`;
     private CREATE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}create/user/`;
     private DELETE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}`;
+
+
 
     constructor(private http: HttpClient) {
 
@@ -50,5 +51,6 @@ export class ChannelService {
     deleteChannel(id: number): Observable<any> {
         return this.http.delete(this.DELETE_CHANNEL_URL + id);
     }
+
 
 }
