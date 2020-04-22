@@ -67,6 +67,10 @@
   color: deepskyblue;
 }
 
+.fa-envelope:hover{
+  font-size: 1.1rem;
+  color: #00b000;
+}
 //
 .list-group-item{
   cursor: pointer;
@@ -115,6 +119,9 @@
   color: dimgray;
 }
 
+.giphy{
+ margin-top: -5%;
+}
 // Message Input styling
 .input{
   margin: 0 auto;

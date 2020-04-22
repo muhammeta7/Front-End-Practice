@@ -5,7 +5,8 @@ import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
-import {Observable} from "rxjs";
+
+
 
 @Component({
     selector: 'app-channels',
@@ -124,7 +125,6 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
         this.userService.getAllChannelsByUser(username).subscribe(
             res => {
                 this.channels = res;
-                console.log(res);
             }, error =>{
                 alert("An error has occurred.");
             }
@@ -143,16 +143,6 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
         );
     }
 
-    public getChannelById(id: number){
-        this.channelService.getChannelById(this.channelModel.id).subscribe(
-            res => {
-                this.channelModel = res;
-            }, error => {
-                alert("This channel does not exist.");
-            }
-        );
-    }
-
     sendMessage(messageModel: Message) {
         this.messageService.createMessage(this.currentChannelId,this.currentUser.id, messageModel).subscribe(
             res => {
@@ -167,9 +157,7 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
     createChannel() {
         this.channelService.createChannel(this.currentUser.id,this.channelModel).subscribe(
             res => {
-                this.channelModel.id = res.id ;
-                this.channels.push(this.channelModel);
-                console.log(res);
+                this.channels.push(res);
             },error => {
                 alert("An error has occurred while creating Channel.");
             }
@@ -180,7 +168,6 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
         this.channelService.createDmChannel(this.currentUser.userName, otherUserName, this.dmChannelModel).subscribe(
             res => {
                 this.dmChannels.push(res);
-                console.log(res);
             },error => {
                 alert("An error has occurred while creating Channel.");
             }
@@ -237,5 +224,7 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
             }
         );
     }
+
+
 
 }
