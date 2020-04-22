@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {UserViewModel} from "../sign-up/sign-up.component";
 import {Channel} from "../channels/model/channel";
-
 
 @Injectable({
     providedIn: 'root'
@@ -17,17 +16,18 @@ export class UserService {
     private GET_BY_USERNAME = `${this.BASE_USERS_URL}/username/`;
     private UPDATE_USER_NAME = `${this.BASE_USERS_URL}/update/username/`;
     private GET_USER_CHANNELS = `${this.BASE_USERS_URL}/channels/`;
+    private GET_ALL_DMS = `${this.BASE_USERS_URL}/dms/`;
 
     constructor(private http: HttpClient) {
-
     }
+
 
     // USER CRUD Operations
     getAllUsers(): Observable<UserViewModel[]>{
         return this.http.get<UserViewModel[]>(this.BASE_USERS_URL);
     }
 
-    getUserByUserName(username: string): Observable<any> {
+    getUserByUserName(username: string){
         return this.http.get<UserViewModel>(this.GET_BY_USERNAME+ username);
     }
 
@@ -41,6 +41,11 @@ export class UserService {
 
     getAllChannelsByUser(username: string): Observable<any> {
         return this.http.get<Channel[]>(this.GET_USER_CHANNELS + username);
+    }
+
+    getAllDmChannels(username: string): Observable<any> {
+        console.log(this.GET_ALL_DMS + username);
+        return this.http.get<Channel[]>(this.GET_ALL_DMS + username);
     }
 
 }

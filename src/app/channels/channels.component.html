@@ -89,20 +89,20 @@
                            placeholder="Type Username to Create DM"
                            aria-label="Search"
                            aria-describedby="basic-addon1"
-                           [(ngModel)]="channelModel.channelName">
+                           [(ngModel)]="dmChannelModel.channelName">
                     <div class="input-group-append">
-                        <span class="input-group-text"><i (click)="createDmChannel(this.channelModel.channelName)" class="fa fa-plus text-center" id="username"></i></span>
+                        <span class="input-group-text"><i (click)="createDmChannel(this.dmChannelModel.channelName)" class="fa fa-plus text-center" id="username"></i></span>
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div  class="input-group create col-sm-12">
-                    <a *ngFor="let channel of dmChannels" class="list-group-item list-group-item-action">
-                        <input [(ngModel)]="channel.channelName" type="text" class="input-label">
+                    <a *ngFor="let dmChannel of dmChannels" class="list-group-item list-group-item-action">
+                        <input [(ngModel)]="dmChannel.channelName" type="text" class="input-label">
                         <div class="input-group-append pull-right">
-                            <span class="input-group-text"><i class="fa fa-eye" id="view1" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
-                            <span class="input-group-text"><i class="fa fa-trash-o" id="trash1" (click)="deleteChannel(channel)"></i></span>
+                            <span class="input-group-text"><i class="fa fa-eye" id="view1" (click)="getChannelMessages(dmChannel); showHiddenElement();"></i></span>
+                            <span class="input-group-text"><i class="fa fa-trash-o" id="trash1" (click)="deleteChannel(dmChannel)"></i></span>
                         </div>
                     </a>
                 </div>
@@ -122,7 +122,7 @@
                     <a class="list-group-item list-group-item-action">
                         <input [(ngModel)]="channel.channelName" type="text" class="input-label">
                         <div class="input-group-append pull-right">
-                            <span class="input-group-text"><i class="fa fa-eye" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
+                            <span class="input-group-text"><i class="fa fa-eye" (click)="getChannelMessages(channel)"></i></span>
                         </div>
                     </a>
                 </div>
@@ -149,13 +149,11 @@
             <div class="row">
                 <div class="container col-sm-12">
                     <ul class="list-group list-group-flush channelMessages">
-                        <li *ngFor="let message of channelMessages" class="list-group-item">
+                        <li *ngFor="let message of channelMessages" class="list-group-item" [hidden]="currentChannelId != message.channel.id">
                             <div class="row sender">
-                                <div class="col-sm-11">
-                                    <p class="username">{{message.sender?.userName}}:  <span class="stamp"> {{message?.timestamp | date:'M/d/yy-h:mm a'}}</span></p>
-                                </div>
-                                <div class="col-sm-1">
-                                    <i class="fa fa-edit"></i>
+                                <div class="col-sm-12">
+                                    <p class="username">{{message.sender?.userName}}:  <span class="stamp"> {{message?.timestamp | date:'M/d/yy-h:mm a'}}
+                                    </span><i class="fa fa-edit pull-right"></i></p>
                                 </div>
                             </div>
                             <div class="row messages">

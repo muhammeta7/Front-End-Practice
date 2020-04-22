@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
 import {Channel} from "./model/channel";
 import {Message} from "../messages/model/message";
 import {UserViewModel} from "../sign-up/sign-up.component";
@@ -12,10 +12,10 @@ import {Observable} from "rxjs";
     templateUrl: './channels.component.html',
     styleUrls: ['./channels.component.scss']
 })
-export class ChannelsComponent implements OnInit {
+export class ChannelsComponent implements OnInit, AfterContentInit {
     channels: Channel[] = [];
     channelMessages: Message[] = [];
-    channelUsers: UserViewModel[] = [];
+    channelUsers: any[] = [];
     currentChannelId:number = 0;
     isShow:boolean = false;
 
@@ -36,6 +36,7 @@ export class ChannelsComponent implements OnInit {
         id: null,
         channelName:'',
         isPrivate: true,
+        isDm:false,
         messages:[],
         users: []
     };
@@ -51,13 +52,35 @@ export class ChannelsComponent implements OnInit {
     newMessage:Message = null;
 
     dmChannels:Channel[] = [];
-    otherUser:Observable<any>;
-    dmChannelModel:Channel;
+
+    otherUser:UserViewModel = {
+        id: null,
+        firstName: '',
+        lastName: '',
+        connected: true,
+        userName: '',
+        password: '',
+        messages: [],
+        channels: []
+    };
+
+    dmChannelModel:Channel = {
+        id: null,
+        channelName:'',
+        isPrivate: true,
+        isDm:true,
+        messages:[],
+        users: []
+    };
 
     constructor(private channelService: ChannelService,
                 private messageService: MessageService,
                 private userService: UserService
     ) { }
+
+    ngAfterContentInit(): void {
+
+    }
 
     ngOnInit() {
         this.getChannelsByUser(sessionStorage.getItem("username"));
@@ -65,7 +88,7 @@ export class ChannelsComponent implements OnInit {
             data => {
                 this.currentUser = data;
                 data.connected = true;
-                console.log(data);
+                this.getDmChannels();
             });
         this.getAllUsers();
         this.getAllPublicChannels();
@@ -75,7 +98,7 @@ export class ChannelsComponent implements OnInit {
         this.isShow = !this.isShow;
     }
 
-    public getAllUsers(){
+    public getAllUsers(): UserViewModel[]{
         this.userService.getAllUsers().subscribe(
             res => {
                 this.channelUsers = res;
@@ -83,6 +106,7 @@ export class ChannelsComponent implements OnInit {
                 alert("Error");
             }
         );
+        return this.channelUsers;
     }
 
     public getAllPublicChannels(){
@@ -100,7 +124,20 @@ export class ChannelsComponent implements OnInit {
         this.userService.getAllChannelsByUser(username).subscribe(
             res => {
                 this.channels = res;
+                console.log(res);
             }, error =>{
+                alert("An error has occurred.");
+            }
+        );
+    }
+
+
+    public getDmChannels(){
+        this.userService.getAllDmChannels(this.currentUser.userName).subscribe(
+            res => {
+                this.dmChannels = res;
+                console.log(res);
+            },error => {
                 alert("An error has occurred.");
             }
         );
@@ -142,11 +179,7 @@ export class ChannelsComponent implements OnInit {
     createDmChannel(otherUserName:string){
         this.channelService.createDmChannel(this.currentUser.userName, otherUserName, this.dmChannelModel).subscribe(
             res => {
-                this.dmChannelModel.id = res.id;
-                this.otherUser = this.userService.getUserByUserName(otherUserName);
-                console.log(this.otherUser);
-                this.dmChannelModel.channelName = this.currentUser.userName + 'and' + otherUserName;
-                this.dmChannels.push(this.dmChannelModel);
+                this.dmChannels.push(res);
                 console.log(res);
             },error => {
                 alert("An error has occurred while creating Channel.");
