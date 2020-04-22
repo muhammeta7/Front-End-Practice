@@ -35,6 +35,10 @@ export class ChannelService {
       return this.http.post<Channel>(this.CREATE_CHANNEL_URL + id, channel);
     }
 
+    createDmChannel(userName:string, otherUser:string, channel:Channel){
+        return this.http.post<Channel>(this.BASE_CHANNELS_URL + userName + '/dm/' + otherUser, channel);
+    }
+
     getAllPublicChannels(): Observable<Channel[]>{
         return this.http.get<Channel[]>(this.PUBLIC_CHANNELS);
     }

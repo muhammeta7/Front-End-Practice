@@ -5,6 +5,7 @@ import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'app-channels',
@@ -16,7 +17,6 @@ export class ChannelsComponent implements OnInit {
     channelMessages: Message[] = [];
     channelUsers: UserViewModel[] = [];
     currentChannelId:number = 0;
-
     isShow:boolean = false;
 
     publicChannels:Channel[] = [];
@@ -49,6 +49,10 @@ export class ChannelsComponent implements OnInit {
     };
 
     newMessage:Message = null;
+
+    dmChannels:Channel[] = [];
+    otherUser:Observable<any>;
+    dmChannelModel:Channel;
 
     constructor(private channelService: ChannelService,
                 private messageService: MessageService,
@@ -128,6 +132,21 @@ export class ChannelsComponent implements OnInit {
             res => {
                 this.channelModel.id = res.id ;
                 this.channels.push(this.channelModel);
+                console.log(res);
+            },error => {
+                alert("An error has occurred while creating Channel.");
+            }
+        );
+    }
+
+    createDmChannel(otherUserName:string){
+        this.channelService.createDmChannel(this.currentUser.userName, otherUserName, this.dmChannelModel).subscribe(
+            res => {
+                this.dmChannelModel.id = res.id;
+                this.otherUser = this.userService.getUserByUserName(otherUserName);
+                console.log(this.otherUser);
+                this.dmChannelModel.channelName = this.currentUser.userName + 'and' + otherUserName;
+                this.dmChannels.push(this.dmChannelModel);
                 console.log(res);
             },error => {
                 alert("An error has occurred while creating Channel.");
