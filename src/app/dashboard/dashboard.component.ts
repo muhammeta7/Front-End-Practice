@@ -22,7 +22,6 @@ export class DashboardComponent implements OnInit {
             data => {
                 this.currentUser = data;
                 data.connected = true;
-                console.log(data);
             });
         this.getChannelsByUser(sessionStorage.getItem("username"));
         this.getAllUsers();

@@ -52,6 +52,10 @@ export class ChannelsComponent implements OnInit{
 
     newMessage:Message = null;
 
+    currentMessage:Message;
+
+    edited = false;
+
     dmChannels:Channel[] = [];
 
     dmChannelModel:Channel = {
@@ -78,6 +82,10 @@ export class ChannelsComponent implements OnInit{
             });
         this.getAllUsers();
         this.getAllPublicChannels();
+    }
+
+    selectCurrent(message: Message){
+        this.currentMessage = message;
     }
 
     public getAllUsers(): UserViewModel[]{
@@ -198,7 +206,8 @@ export class ChannelsComponent implements OnInit{
 
     getChannelMessages(channel: Channel){
         this.currentChannelId = channel.id;
-        setInterval( () => this.messageService.getChannelMessages(channel.id)
+        // setInterval( () =>
+        this.messageService.getChannelMessages(channel.id)
             .subscribe(
             res => {
                 this.channelMessages = res;
@@ -206,9 +215,25 @@ export class ChannelsComponent implements OnInit{
             error => {
                 alert("Error occurred while retrieving messages");
             }
-        ) ,500);
+        )
+            // ,500);
     }
 
+    updateMessage(){
+        this.messageService.updateMessage(this.currentMessage.id, this.currentMessage.content).subscribe(
+            res => {
+                this.channelMessages.find(value =>
+                    value.id === this.currentMessage.id).content = res.content;
+                console.log(res);
+            }, error => {
+                alert("Error while trying to update message.")
+            }
+        );
+        this.messageModel.content = '';
+    }
 
+    canEdit(): boolean{
+        return this.messageModel.sender === this.currentUser;
+    }
 
 }

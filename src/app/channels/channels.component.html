@@ -153,7 +153,7 @@
                             <div class="row sender">
                                 <div class="col-sm-12">
                                     <p class="username">{{message.sender?.userName}}:  <span class="stamp"> {{message?.timestamp | date:'M/d/yy-h:mm a'}}
-                                    </span><i class="fa fa-edit pull-right"></i></p>
+                                    </span><i (click)="selectCurrent(message)" class="fa fa-edit pull-right"></i></p>
                                 </div>
                             </div>
                             <div class="row messages">
@@ -161,6 +161,7 @@
                                     <p class="content">{{message?.content}}</p>
                                 </div>
                             </div>
+                            <input *ngIf="currentMessage?.id === message.id" [(ngModel)]="currentMessage.content"  type="text" placeholder="{{message.content}}" (keyup.enter)="updateMessage(); currentMessage.id = 0;">
                         </li>
                     </ul>
                 </div>

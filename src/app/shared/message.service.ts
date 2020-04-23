@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Message} from "../messages/model/message";
 import {Observable, Subject} from "rxjs";
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,6 @@ export class MessageService {
     private CREATE_MESSAGE_URL = `${this.BASE_MESSAGES_URL}/channel/1/sender/1`;
     private GET_CHANNEL_MESSAGES = `${this.BASE_URL}/channels/chat/`;
     private ACTUAL_CREATE_MESSAGE = `${this.BASE_MESSAGES_URL}/channel/`;
-
 
 
     constructor(private http: HttpClient) {
@@ -40,5 +40,11 @@ export class MessageService {
         return this.http.get<Message[]>(this.GET_CHANNEL_MESSAGES + id);
     }
 
+    updateMessage(id: number, newContent:string){
+        const url = `${this.BASE_MESSAGES_URL}/${id}/edit`;
+        const param = new FormData();
+        param.append('newContent', newContent);
+        return this.http.put<Message>(url, param);
+    }
 
 }
