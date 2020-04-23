@@ -64,7 +64,7 @@
                         <input [(ngModel)]="channel.channelName" (change)="updateChannel(channel)" type="text" class="input-label">
                         <div class="input-group-append pull-right">
                             <span class="input-group-text"><i class="fa fa-lock" (click)="updateChannelPrivacy(channel)"></i></span>
-                            <span class="input-group-text"><i class="fa fa-eye" id="view" (click)="getChannelMessages(channel); showHiddenElement();"></i></span>
+                            <span class="input-group-text"><i class="fa fa-eye" id="view" (click)="getChannelMessages(channel)"></i></span>
                             <span class="input-group-text"><i class="fa fa-trash-o" id="trash" (click)="deleteChannel(channel)"></i></span>
                         </div>
                     </a>
@@ -101,7 +101,7 @@
                     <ul *ngFor="let dmChannel of dmChannels" class="list-group-item list-group-item-action" disabled="disabled">
                         <input [(ngModel)]="dmChannel.channelName" type="text" class="input-label" readonly>
                         <div class="input-group-append pull-right">
-                            <span class="input-group-text"><i class="fa fa-eye" id="view1" (click)="getChannelMessages(dmChannel); showHiddenElement();"></i></span>
+                            <span class="input-group-text"><i class="fa fa-eye" id="view1" (click)="getChannelMessages(dmChannel)"></i></span>
                             <span class="input-group-text"><i class="fa fa-trash-o" id="trash1" (click)="deleteChannel(dmChannel)"></i></span>
                         </div>
                     </ul>
@@ -167,7 +167,7 @@
             </div>
 
             <!--    Add Message to Channel  -->
-            <div *ngIf="isShow" class="row">
+            <div class="row" [hidden]="!currentChannelId">
                 <div  class="col-sm-12 form-group input">
                     <textarea class="form-control"
                               [(ngModel)]="messageModel.content"
@@ -178,12 +178,12 @@
                     </textarea>
                     <label for="addMessage" class="container">Send New Message</label>
                 </div>
-                <div  class="col-sm-12 giphy">
-                    <label>
-                        <input name="search" #searchTerm>
-                    </label>
-                    <button>Search</button>
-                </div>
+<!--                <div  class="col-sm-12 giphy">-->
+<!--                    <label>-->
+<!--                        <input name="search" #searchTerm>-->
+<!--                    </label>-->
+<!--                    <button>Search</button>-->
+<!--                </div>-->
             </div>
 
 
