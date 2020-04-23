@@ -13,12 +13,11 @@ import {UserService} from "../shared/user.service";
     templateUrl: './channels.component.html',
     styleUrls: ['./channels.component.scss']
 })
-export class ChannelsComponent implements OnInit, AfterContentInit {
+export class ChannelsComponent implements OnInit{
     channels: Channel[] = [];
     channelMessages: Message[] = [];
     channelUsers: any[] = [];
     currentChannelId:number = 0;
-    isShow:boolean = false;
 
     publicChannels:Channel[] = [];
 
@@ -54,17 +53,6 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
 
     dmChannels:Channel[] = [];
 
-    otherUser:UserViewModel = {
-        id: null,
-        firstName: '',
-        lastName: '',
-        connected: true,
-        userName: '',
-        password: '',
-        messages: [],
-        channels: []
-    };
-
     dmChannelModel:Channel = {
         id: null,
         channelName:'',
@@ -79,10 +67,6 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
                 private userService: UserService
     ) { }
 
-    ngAfterContentInit(): void {
-
-    }
-
     ngOnInit() {
         this.getChannelsByUser(sessionStorage.getItem("username"));
         this.userService.getUserByUserName(sessionStorage.getItem('username')).subscribe(
@@ -93,10 +77,6 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
             });
         this.getAllUsers();
         this.getAllPublicChannels();
-    }
-
-    public showHiddenElement(){
-        this.isShow = !this.isShow;
     }
 
     public getAllUsers(): UserViewModel[]{
@@ -162,6 +142,7 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
                 alert("An error has occurred while creating Channel.");
             }
         );
+        this.channelModel.channelName = '';
     }
 
     createDmChannel(otherUserName:string){
@@ -172,6 +153,7 @@ export class ChannelsComponent implements OnInit, AfterContentInit {
                 alert("An error has occurred while creating Channel.");
             }
         );
+        this.dmChannelModel.channelName = '';
     }
 
     updateChannel(updatedChannel: Channel) {

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Message} from "../messages/model/message";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -16,9 +16,12 @@ export class MessageService {
     private GET_CHANNEL_MESSAGES = `${this.BASE_URL}/channels/chat/`;
     private ACTUAL_CREATE_MESSAGE = `${this.BASE_MESSAGES_URL}/channel/`;
 
+
+
     constructor(private http: HttpClient) {
 
     }
+
 
     getMessage(id: number): Observable<any> {
         return this.http.get<Message>(this.GET_MESSAGE_URL + '/' + id);
