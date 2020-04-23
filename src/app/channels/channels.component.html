@@ -161,7 +161,10 @@
                                     <p class="content">{{message?.content}}</p>
                                 </div>
                             </div>
-                            <input *ngIf="currentMessage?.id === message.id" [(ngModel)]="currentMessage.content"  type="text" placeholder="{{message.content}}" (keyup.enter)="updateMessage(); currentMessage.id = 0;">
+                            <label *ngIf="currentMessage?.id === message.id">
+                                <input [(ngModel)]="currentMessage.content"  type="text"
+                                       placeholder="{{message.content}}" (keyup.enter)="updateMessage(); currentMessage.id = 0;">
+                            </label>
                         </li>
                     </ul>
                 </div>
