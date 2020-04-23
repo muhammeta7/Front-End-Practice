@@ -5,6 +5,7 @@ import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
+import {interval} from "rxjs";
 
 
 
@@ -197,14 +198,15 @@ export class ChannelsComponent implements OnInit{
 
     getChannelMessages(channel: Channel){
         this.currentChannelId = channel.id;
-        this.messageService.getChannelMessages(channel.id).subscribe(
+        setInterval( () => this.messageService.getChannelMessages(channel.id)
+            .subscribe(
             res => {
                 this.channelMessages = res;
             },
             error => {
                 alert("Error occurred while retrieving messages");
             }
-        );
+        ) ,500);
     }
 
 

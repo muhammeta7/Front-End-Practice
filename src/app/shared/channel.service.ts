@@ -17,11 +17,7 @@ export class ChannelService {
     private CREATE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}create/user/`;
     private DELETE_CHANNEL_URL = `${this.BASE_CHANNELS_URL}`;
 
-
-
-
     constructor(private http: HttpClient) {
-
     }
 
     // Channel CRUD operations
