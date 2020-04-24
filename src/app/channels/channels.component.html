@@ -151,9 +151,14 @@
                     <ul class="list-group list-group-flush channelMessages">
                         <li *ngFor="let message of channelMessages" class="list-group-item" [hidden]="currentChannelId != message.channel?.id">
                             <div class="row sender">
-                                <div class="col-sm-12">
-                                    <p class="username">{{message.sender?.userName}}:  <span class="stamp"> {{message?.timestamp | date:'M/d/yy-h:mm a'}}
-                                    </span><i class="fa fa-edit pull-right"></i></p>
+                                <div class="col-sm-10">
+                                    <p class="username">{{message.sender?.userName}}:  <span class="stamp"> {{message?.timestamp | date:'M/d/yy-h:mm a'}}</span></p>
+
+                                </div>
+                                <div class="col-sm-2">
+                                    <p class="editMessage"><i *ngIf="message.sender.id === this.currentUser.id"  (click)="deleteMessage(message)" class="fa fa-trash-o pull-right"></i>
+                                        <span><i *ngIf="message.sender.id === this.currentUser.id" (click)="selectCurrent(message)" class="fa fa-edit pull-right"></i></span>
+                                    </p>
                                 </div>
                             </div>
                             <div class="row messages">
@@ -161,6 +166,13 @@
                                     <p class="content">{{message?.content}}</p>
                                 </div>
                             </div>
+                            <label *ngIf="currentMessage?.id === message.id && currentMessage.sender.id === this.currentUser.id" >
+                                <input [(ngModel)]="currentMessage.content"
+                                       placeholder="{{message.content}}"
+                                       (keyup.enter)="updateMessage()"
+                                       type="text"
+                                       >
+                            </label>
                         </li>
                     </ul>
                 </div>

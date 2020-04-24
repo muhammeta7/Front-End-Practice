@@ -52,6 +52,8 @@ export class ChannelsComponent implements OnInit{
 
     newMessage:Message = null;
 
+    currentMessage:Message;
+
     dmChannels:Channel[] = [];
 
     dmChannelModel:Channel = {
@@ -78,6 +80,10 @@ export class ChannelsComponent implements OnInit{
             });
         this.getAllUsers();
         this.getAllPublicChannels();
+    }
+
+    selectCurrent(message: Message){
+        this.currentMessage = message;
     }
 
     public getAllUsers(): UserViewModel[]{
@@ -184,7 +190,7 @@ export class ChannelsComponent implements OnInit{
     }
 
     deleteChannel(channel: Channel) {
-        if(confirm("Are you sure you would like to delete this channel")){
+        if(confirm("Are you sure you would like to delete this channel?")){
             this.channelService.deleteChannel(channel.id).subscribe(
                 res => {
                     let index = this.channels.indexOf(channel);
@@ -198,7 +204,8 @@ export class ChannelsComponent implements OnInit{
 
     getChannelMessages(channel: Channel){
         this.currentChannelId = channel.id;
-        setInterval( () => this.messageService.getChannelMessages(channel.id)
+        // setInterval( () =>
+        this.messageService.getChannelMessages(channel.id)
             .subscribe(
             res => {
                 this.channelMessages = res;
@@ -206,9 +213,33 @@ export class ChannelsComponent implements OnInit{
             error => {
                 alert("Error occurred while retrieving messages");
             }
-        ) ,500);
+        )
+            // ,500);
     }
 
+    updateMessage(){
+        this.messageService.updateMessage(this.currentMessage.id, this.currentMessage.content).subscribe(
+            res => {
+                this.channelMessages.find(value =>
+                    value.id === this.currentMessage.id).content = res.content;
+                console.log(res);
+            }, error => {
+                alert("Error while trying to update message.")
+            }
+        );
+    }
 
+    deleteMessage(message:Message){
+        if(confirm("Are you sure you would like to delete this message?")){
+            this.messageService.deleteMessage(message.id).subscribe(
+                res => {
+                    let index = this.channelMessages.indexOf(message);
+                    this.channelMessages.splice(index,1);
+                }, error => {
+                    alert("Error while deleting message.");
+                }
+            );
+        }
+    }
 
 }
