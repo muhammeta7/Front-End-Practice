@@ -16,7 +16,7 @@ import {interval} from "rxjs";
 })
 export class ChannelsComponent implements OnInit{
     channels: Channel[] = [];
-    channelMessages: Message[] = [];
+    channelMessages: Message[] = null;
     channelUsers: any[] = [];
     currentChannelId:number = 0;
 
@@ -203,20 +203,43 @@ export class ChannelsComponent implements OnInit{
         }
     }
 
+
+    addMessage = true;
     getChannelMessages(channel: Channel){
         this.currentChannelId = channel.id;
-        // setInterval( () =>
+        // setInterval( () => {
         this.messageService.getChannelMessages(channel.id)
-            .subscribe(
+        .subscribe(
             res => {
+                console.log(this.channelMessages);
                 this.channelMessages = res;
+                // if(this.channelMessages === null){
+                //     this.channelMessages = res;
+                //     this.addMessage = false;
+                // } else if(this.channelMessages[this.channelMessages.length-1].id != res[res.length-1].id && this.addMessage){
+                //     this.channelMessages.push(res[res.length-1]);
+                //     this.addMessage = false;
+                // }
             },
             error => {
                 alert("Error occurred while retrieving messages");
+
             }
-        )
-            // ,500);
+            )
+    // }, 1000);
     }
+
+    // refreshChannelMessage(id: number){
+    //     const allChannels =
+    //         this.publicChannels;
+    //     allChannels.push(...this.dmChannels);
+    //     allChannels.push(...this.channels);
+    //     const channel = allChannels.find(value =>
+    //         value.id === id
+    //     );
+    //     // @ts-ignore
+    //     setTimeout(this.getChannelMessages(channel), 1000);
+    // }
 
     updateMessage(){
         this.messageService.updateMessage(this.currentMessage.id, this.currentMessage.content).subscribe(
