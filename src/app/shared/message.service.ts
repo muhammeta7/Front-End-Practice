@@ -22,7 +22,6 @@ export class MessageService {
 
     }
 
-
     getMessage(id: number): Observable<any> {
         return this.http.get<Message>(this.GET_MESSAGE_URL + '/' + id);
     }

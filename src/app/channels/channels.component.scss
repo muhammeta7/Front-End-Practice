@@ -67,11 +67,15 @@
   color: deepskyblue;
 }
 
-.fa-envelope:hover{
+.fa-edit:hover{
   font-size: 1.1rem;
   color: #00b000;
 }
 //
+#dmChannels{
+  margin-bottom: 0;
+}
+
 .list-group-item{
   cursor: pointer;
   padding: 0;
@@ -119,8 +123,19 @@
   color: dimgray;
 }
 
-#editedMessage input{
+.editMessage{
+  padding-right: 6%;
+}
+
+.edit-message-container{
   width: 100%;
+  padding: 0 1rem;
+}
+
+.edit-message-input {
+  font-size: .8rem;
+  width: 100%;
+  padding-left: .2rem;
 }
 
 
@@ -136,7 +151,7 @@
     background-color: transparent;
     border: 1.5px solid #0099ef;
     outline: none;
-    color: #0099ef;
+    color: black;
     padding-left: 10px;
 
     &:focus + label{

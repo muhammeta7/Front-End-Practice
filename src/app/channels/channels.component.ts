@@ -1,13 +1,12 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Channel} from "./model/channel";
 import {Message} from "../messages/model/message";
 import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
-import {interval} from "rxjs";
-
-
+import { fromEvent } from 'rxjs';
+import { debounceTime, throttleTime, bufferCount, map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-channels',
@@ -16,7 +15,7 @@ import {interval} from "rxjs";
 })
 export class ChannelsComponent implements OnInit{
     channels: Channel[] = [];
-    channelMessages: Message[] = [];
+    channelMessages: Message[] = null;
     channelUsers: any[] = [];
     currentChannelId:number = 0;
 
@@ -56,6 +55,8 @@ export class ChannelsComponent implements OnInit{
 
     dmChannels:Channel[] = [];
 
+    validEdit = false;
+
     dmChannelModel:Channel = {
         id: null,
         channelName:'',
@@ -65,10 +66,12 @@ export class ChannelsComponent implements OnInit{
         users: []
     };
 
+    dmId=0;
+
     constructor(private channelService: ChannelService,
                 private messageService: MessageService,
                 private userService: UserService
-    ) { }
+    ){}
 
     ngOnInit() {
         this.getChannelsByUser(sessionStorage.getItem("username"));
@@ -81,6 +84,7 @@ export class ChannelsComponent implements OnInit{
         this.getAllUsers();
         this.getAllPublicChannels();
     }
+
 
     selectCurrent(message: Message){
         this.currentMessage = message;
@@ -118,12 +122,10 @@ export class ChannelsComponent implements OnInit{
         );
     }
 
-
     public getDmChannels(){
         this.userService.getAllDmChannels(this.currentUser.userName).subscribe(
             res => {
                 this.dmChannels = res;
-                console.log(res);
             },error => {
                 alert("An error has occurred.");
             }
@@ -131,6 +133,7 @@ export class ChannelsComponent implements OnInit{
     }
 
     sendMessage(messageModel: Message) {
+        messageModel.channel = this.dmChannelModel;
         this.messageService.createMessage(this.currentChannelId,this.currentUser.id, messageModel).subscribe(
             res => {
                 this.newMessage = res;
@@ -204,17 +207,23 @@ export class ChannelsComponent implements OnInit{
 
     getChannelMessages(channel: Channel){
         this.currentChannelId = channel.id;
-        // setInterval( () =>
-        this.messageService.getChannelMessages(channel.id)
+        console.log(channel.id);
+        const clickEvent = fromEvent(document, 'click');
+        const keyUpEvent = fromEvent(document, 'keyup');
+        setInterval( () => {
+            this.messageService.getChannelMessages(this.currentChannelId)
             .subscribe(
-            res => {
-                this.channelMessages = res;
-            },
-            error => {
-                alert("Error occurred while retrieving messages");
-            }
-        )
-            // ,500);
+                res => {
+                    this.channelMessages = res;
+                    if(clickEvent) {
+                        clearInterval(500);
+                    }
+                },
+                error => {
+                    alert("Error occurred while retrieving messages");
+
+                }
+            )}, 1000);
     }
 
     updateMessage(){
@@ -242,4 +251,14 @@ export class ChannelsComponent implements OnInit{
         }
     }
 
+    checkSender(id: number, id2: number) {
+        if (id === id2){
+            this.validEdit = true;
+        }
+    }
+
+    getCurrentDmChannel(dmChannel: Channel) {
+        this.dmChannelModel = dmChannel;
+        console.log(dmChannel);
+    }
 }

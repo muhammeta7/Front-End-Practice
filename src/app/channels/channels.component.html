@@ -65,6 +65,7 @@
                         <div class="input-group-append pull-right">
                             <span class="input-group-text"><i class="fa fa-lock" (click)="updateChannelPrivacy(channel)"></i></span>
                             <span class="input-group-text"><i class="fa fa-eye" id="view" (click)="getChannelMessages(channel)"></i></span>
+<!--                            channelMessages=null;-->
                             <span class="input-group-text"><i class="fa fa-trash-o" id="trash" (click)="deleteChannel(channel)"></i></span>
                         </div>
                     </a>
@@ -97,11 +98,12 @@
             </div>
 
             <div class="row">
-                <div  class="input-group create col-sm-12">
-                    <ul *ngFor="let dmChannel of dmChannels" class="list-group-item list-group-item-action" disabled="disabled">
+                <div  class="col-sm-12 input-group">
+                    <ul *ngFor="let dmChannel of dmChannels" class="list-group-item list-group-item-action" id="dmChannels" disabled="disabled">
                         <input [(ngModel)]="dmChannel.channelName" type="text" class="input-label" readonly>
                         <div class="input-group-append pull-right">
-                            <span class="input-group-text"><i class="fa fa-eye" id="view1" (click)="getChannelMessages(dmChannel)"></i></span>
+<!--                            channelMessages=null;-->
+                            <span class="input-group-text"><i class="fa fa-eye"  id="view1" (click)="getChannelMessages(dmChannel);getCurrentDmChannel(dmChannel)"></i></span>
                             <span class="input-group-text"><i class="fa fa-trash-o" id="trash1" (click)="deleteChannel(dmChannel)"></i></span>
                         </div>
                     </ul>
@@ -123,14 +125,13 @@
                         <input [(ngModel)]="channel.channelName" type="text" class="input-label">
                         <div class="input-group-append pull-right">
                             <span class="input-group-text"><i class="fa fa-eye" (click)="getChannelMessages(channel)"></i></span>
+<!--                            channelMessages=null;-->
                         </div>
                     </a>
                 </div>
             </div>
 
         </div>
-
-
 
 
         <!---------------------   Channel Messages Column  --------------------->
@@ -155,9 +156,11 @@
                                     <p class="username">{{message.sender?.userName}}:  <span class="stamp"> {{message?.timestamp | date:'M/d/yy-h:mm a'}}</span></p>
 
                                 </div>
-                                <div class="col-sm-2">
-                                    <p class="editMessage"><i *ngIf="message.sender.id === this.currentUser.id"  (click)="deleteMessage(message)" class="fa fa-trash-o pull-right"></i>
-                                        <span><i *ngIf="message.sender.id === this.currentUser.id" (click)="selectCurrent(message)" class="fa fa-edit pull-right"></i></span>
+                                <div class="col-sm-2 editMessage">
+                                    <p ><i *ngIf="message.sender.id === this.currentUser.id"  (click)="deleteMessage(message)" class="fa fa-trash-o pull-right"></i>
+                                        <span><i *ngIf="message.sender.id === this.currentUser.id"
+                                                 (click)="selectCurrent(message);checkSender(message.sender.id, this.currentUser.id);"
+                                                 class="fa fa-edit pull-right"></i></span>
                                     </p>
                                 </div>
                             </div>
@@ -166,11 +169,12 @@
                                     <p class="content">{{message?.content}}</p>
                                 </div>
                             </div>
-                            <label *ngIf="currentMessage?.id === message.id && currentMessage.sender.id === this.currentUser.id" >
+                            <label *ngIf="currentMessage?.id === message.id && validEdit" class="edit-message-container">
                                 <input [(ngModel)]="currentMessage.content"
                                        placeholder="{{message.content}}"
-                                       (keyup.enter)="updateMessage()"
+                                       (keyup.enter)="updateMessage();validEdit=false;"
                                        type="text"
+                                       class="edit-message-input"
                                        >
                             </label>
                         </li>
@@ -183,7 +187,7 @@
                 <div  class="col-sm-12 form-group input">
                     <textarea class="form-control"
                               [(ngModel)]="messageModel.content"
-                              (keyup.enter)="sendMessage(messageModel);messageModel.content ='';"
+                              (keyup.enter)="sendMessage(messageModel);messageModel.content ='';getChannelMessages(messageModel.channel);"
                               id="addMessage"
                               rows="2"
                     >
@@ -206,5 +210,6 @@
 
     </div>
 </div>
+
 
 
