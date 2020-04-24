@@ -155,9 +155,11 @@
                                     <p class="username">{{message.sender?.userName}}:  <span class="stamp"> {{message?.timestamp | date:'M/d/yy-h:mm a'}}</span></p>
 
                                 </div>
-                                <div class="col-sm-2">
-                                    <p class="editMessage"><i *ngIf="message.sender.id === this.currentUser.id"  (click)="deleteMessage(message)" class="fa fa-trash-o pull-right"></i>
-                                        <span><i *ngIf="message.sender.id === this.currentUser.id" (click)="selectCurrent(message)" class="fa fa-edit pull-right"></i></span>
+                                <div class="col-sm-2 editMessage">
+                                    <p ><i *ngIf="message.sender.id === this.currentUser.id"  (click)="deleteMessage(message)" class="fa fa-trash-o pull-right"></i>
+                                        <span><i *ngIf="message.sender.id === this.currentUser.id"
+                                                 (click)="selectCurrent(message);checkSender(message.sender.id, this.currentUser.id);"
+                                                 class="fa fa-edit pull-right"></i></span>
                                     </p>
                                 </div>
                             </div>
@@ -166,10 +168,10 @@
                                     <p class="content">{{message?.content}}</p>
                                 </div>
                             </div>
-                            <label *ngIf="currentMessage?.id === message.id && currentMessage.sender.id === this.currentUser.id" >
+                            <label *ngIf="currentMessage?.id === message.id && validEdit">
                                 <input [(ngModel)]="currentMessage.content"
                                        placeholder="{{message.content}}"
-                                       (keyup.enter)="updateMessage()"
+                                       (keyup.enter)="updateMessage();validEdit=false;"
                                        type="text"
                                        >
                             </label>

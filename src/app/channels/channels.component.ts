@@ -56,6 +56,8 @@ export class ChannelsComponent implements OnInit{
 
     dmChannels:Channel[] = [];
 
+    validEdit = false;
+
     dmChannelModel:Channel = {
         id: null,
         channelName:'',
@@ -123,7 +125,6 @@ export class ChannelsComponent implements OnInit{
         this.userService.getAllDmChannels(this.currentUser.userName).subscribe(
             res => {
                 this.dmChannels = res;
-                console.log(res);
             },error => {
                 alert("An error has occurred.");
             }
@@ -242,4 +243,9 @@ export class ChannelsComponent implements OnInit{
         }
     }
 
+    checkSender(id: number, id2: number) {
+        if (id === id2){
+            this.validEdit = true;
+        }
+    }
 }
