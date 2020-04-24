@@ -54,8 +54,6 @@ export class ChannelsComponent implements OnInit{
 
     currentMessage:Message;
 
-    edited = false;
-
     dmChannels:Channel[] = [];
 
     dmChannelModel:Channel = {
@@ -192,7 +190,7 @@ export class ChannelsComponent implements OnInit{
     }
 
     deleteChannel(channel: Channel) {
-        if(confirm("Are you sure you would like to delete this channel")){
+        if(confirm("Are you sure you would like to delete this channel?")){
             this.channelService.deleteChannel(channel.id).subscribe(
                 res => {
                     let index = this.channels.indexOf(channel);
@@ -229,11 +227,19 @@ export class ChannelsComponent implements OnInit{
                 alert("Error while trying to update message.")
             }
         );
-        this.messageModel.content = '';
     }
 
-    canEdit(): boolean{
-        return this.messageModel.sender === this.currentUser;
+    deleteMessage(message:Message){
+        if(confirm("Are you sure you would like to delete this message?")){
+            this.messageService.deleteMessage(message.id).subscribe(
+                res => {
+                    let index = this.channelMessages.indexOf(message);
+                    this.channelMessages.splice(index,1);
+                }, error => {
+                    alert("Error while deleting message.");
+                }
+            );
+        }
     }
 
 }
