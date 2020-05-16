@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-sm-12 container">
                     <ul *ngFor="let user of channelUsers" class="list-group list-group-flush">
-                        <li  *ngIf="user.id != this.currentUser.id"id="users" class="list-group-item">
+                        <li  *ngIf="user.id != this.currentUser.id" id="users" class="list-group-item">
                             <span><i class="fa fa-circle-o" id="connection"></i>{{user.userName}}</span>
                         </li>
                     </ul>
@@ -187,7 +187,7 @@
                 <div  class="col-sm-12 form-group input">
                     <textarea class="form-control"
                               [(ngModel)]="messageModel.content"
-                              (keyup.enter)="sendMessage(messageModel);messageModel.content ='';getChannelMessages(messageModel.channel);"
+                              (keyup.enter)="sendMessage(messageModel);messageModel.content ='';"
                               id="addMessage"
                               rows="2"
                     >
