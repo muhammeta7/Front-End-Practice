@@ -31,7 +31,7 @@ export class MessageService {
     }
 
 
-    createMessage(channelId:number, userId:number, message: Message){
+    createMessage(channelId: number, userId: number, message: Message){
         return this.http.post<Message>(this.ACTUAL_CREATE_MESSAGE + channelId + '/sender/' + userId, message);
     }
 

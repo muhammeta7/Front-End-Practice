@@ -1,22 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Channel} from "./model/channel";
 import {Message} from "../messages/model/message";
 import {UserViewModel} from "../sign-up/sign-up.component";
 import {ChannelService} from "../shared/channel.service";
 import {MessageService} from "../shared/message.service";
 import {UserService} from "../shared/user.service";
-import { fromEvent } from 'rxjs';
-import { debounceTime, throttleTime, bufferCount, map } from 'rxjs/operators';
+import {fromEvent, interval, Subscription} from 'rxjs';
+import {mapTo, takeUntil, takeWhile, tap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-channels',
     templateUrl: './channels.component.html',
     styleUrls: ['./channels.component.scss']
 })
-export class ChannelsComponent implements OnInit{
+export class ChannelsComponent implements OnInit, OnDestroy{
     channels: Channel[] = [];
     channelMessages: Message[] = null;
-    channelUsers: any[] = [];
+    channelUsers: UserViewModel[] = [];
     currentChannelId:number = 0;
 
     publicChannels:Channel[] = [];
@@ -65,8 +65,8 @@ export class ChannelsComponent implements OnInit{
         messages:[],
         users: []
     };
+    private subscription: Subscription;
 
-    dmId=0;
 
     constructor(private channelService: ChannelService,
                 private messageService: MessageService,
@@ -85,6 +85,9 @@ export class ChannelsComponent implements OnInit{
         this.getAllPublicChannels();
     }
 
+    ngOnDestroy():void{
+        this.subscription.unsubscribe();
+    }
 
     selectCurrent(message: Message){
         this.currentMessage = message;
@@ -206,24 +209,22 @@ export class ChannelsComponent implements OnInit{
     }
 
     getChannelMessages(channel: Channel){
+        if(this.subscription != undefined){
+            this.subscription.unsubscribe();
+        }
         this.currentChannelId = channel.id;
-        console.log(channel.id);
-        const clickEvent = fromEvent(document, 'click');
-        const keyUpEvent = fromEvent(document, 'keyup');
-        setInterval( () => {
-            this.messageService.getChannelMessages(this.currentChannelId)
-            .subscribe(
-                res => {
-                    this.channelMessages = res;
-                    if(clickEvent) {
-                        clearInterval(500);
-                    }
-                },
-                error => {
-                    alert("Error occurred while retrieving messages");
+        const myRequest = this.messageService.getChannelMessages(this.currentChannelId).subscribe(res => {
+                this.channelMessages = res;
+        });
 
-                }
-            )}, 1000);
+        const interval$ = interval(1000);
+
+        this.subscription = interval$.pipe(
+            tap(console.log),
+            mapTo(
+                myRequest
+            ),
+        ).subscribe();
     }
 
     updateMessage(){
