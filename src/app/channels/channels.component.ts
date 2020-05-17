@@ -213,17 +213,13 @@ export class ChannelsComponent implements OnInit, OnDestroy{
             this.subscription.unsubscribe();
         }
         this.currentChannelId = channel.id;
-        const myRequest = this.messageService.getChannelMessages(this.currentChannelId).subscribe(res => {
-                this.channelMessages = res;
-        });
-
         const interval$ = interval(1000);
 
         this.subscription = interval$.pipe(
             tap(console.log),
-            mapTo(
-                myRequest
-            ),
+            tap(() => this.messageService.getChannelMessages(this.currentChannelId).subscribe(res => {
+                this.channelMessages = res;
+            })),
         ).subscribe();
     }
 
