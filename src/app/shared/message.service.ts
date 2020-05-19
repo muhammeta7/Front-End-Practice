@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class MessageService {
 
-    private BASE_URL = "http://localhost:8080";
+    private BASE_URL = "https://tcp-chat-zcw.herokuapp.com";
     // Message Endpoints
     private BASE_MESSAGES_URL = `${this.BASE_URL}/messages`;
     private GET_MESSAGE_URL = `${this.BASE_URL}/messages`;

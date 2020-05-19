@@ -8,7 +8,7 @@ import {HttpClient} from "@angular/common/http";
     providedIn: 'root'
 })
 export class ChannelService {
-    private BASE_URL = "http://localhost:8080";
+    private BASE_URL = "https://tcp-chat-zcw.herokuapp.com";
     private BASE_MESSAGES_URL = `${this.BASE_URL}/messages`;
     // CHANNEL ENDPOINTS
     private BASE_CHANNELS_URL = `${this.BASE_URL}/channels/`;
